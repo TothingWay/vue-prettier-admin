@@ -5,12 +5,28 @@ import router from './router'
 import store from './store'
 // makes browsers render all elements more consistently
 import 'normalize.css'
+// icon
 import 'base/icon'
+
 // 引入elementUI自定义主题色
 // import './common/scss/element-variables.scss'
 
 // 按需引入elementUI
-import { Form, FormItem, Input, Icon, Button } from 'element-ui'
+import {
+  Form,
+  FormItem,
+  Input,
+  Icon,
+  Button,
+  Menu,
+  Submenu,
+  MenuItemGroup,
+  MenuItem
+} from 'element-ui'
+
+// 挂载axios到vue原型上
+import api from './api/index'
+Vue.prototype.axios = api
 
 // 按需引入collapse过度组件
 // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
@@ -22,6 +38,10 @@ Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Icon)
 Vue.use(Button)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItemGroup)
+Vue.use(MenuItem)
 
 // 调整elementUI组件大小
 // Vue.prototype.$ELEMENT = { size: 'small' }

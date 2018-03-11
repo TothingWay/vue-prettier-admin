@@ -9,13 +9,13 @@ export default {
     @param: username
     @param: password
    */
-  login () {
+  login (username, password) {
     return axios({
       method: 'post',
       url: url.login,
       data: {
-        username: 'admin',
-        password: 'admin'
+        username,
+        password
       }
     })
   }
