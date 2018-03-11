@@ -1,4 +1,4 @@
-export function isvalidUsername (str) {
-  const validMap = ['admin', 'editor']
-  return validMap.indexOf(str.trim()) >= 0
+export function testForm (str) {
+  const re = /^[a-zA-Z0-9_-]{5,16}$/
+  return re.test(str)
 }

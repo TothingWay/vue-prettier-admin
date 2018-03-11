@@ -10,7 +10,7 @@
       >
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <icon type="dashboard"/>
             <span slot="title">导航一</span>
           </template>
           <el-menu-item-group>
@@ -19,15 +19,15 @@
           </el-menu-item-group>
         </el-submenu>
         <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
+          <icon type="dashboard"/>
           <span slot="title">导航二</span>
         </el-menu-item>
         <el-menu-item index="3">
-          <i class="el-icon-document"></i>
+          <icon type="dashboard"/>
           <span slot="title">导航三</span>
         </el-menu-item>
         <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
+          <icon type="dashboard"/>
           <span slot="title">导航四</span>
         </el-menu-item>
       </el-menu>
@@ -37,6 +37,18 @@
         <div class="btn-collapse" @click="toggleNav" :class="{rotate:isCollapse}">
           <icon type="menu"/>
         </div>
+        <el-dropdown>
+          <div class="el-dropdown-link">
+            <div class="avatar">
+              <img class="avatar-img" src="">
+            </div>
+            <i class="el-icon-caret-bottom"></i>
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>github</el-dropdown-item>
+            <el-dropdown-item divided>Log Out</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -82,11 +94,14 @@ export default {
     .el-menu {
       border-right: none;
     }
-  }
-  .main {
-    transition: margin-left .28s;
-    margin-left: 200px;
-    height: 100%;
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 5px;
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
   }
 }
 
@@ -94,11 +109,15 @@ export default {
   width: 200px;
 }
 .main {
+  transition: margin-left .28s;
+  margin-left: 200px;
+  height: 100%;
   .header {
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #e6e6e6;
     background-color: #fff;
+    position: relative;
   }
   .btn-collapse {
     cursor: pointer;
@@ -113,6 +132,29 @@ export default {
     }
     &.rotate {
       transform: rotate(90deg);
+    }
+  }
+  .el-dropdown {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+  }
+  .el-icon-caret-bottom {
+    position: relative;
+    top: -13px;
+  }
+  .avatar {
+    display: inline-block;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    overflow: hidden;
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: 0;
     }
   }
 }
