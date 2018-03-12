@@ -1,8 +1,8 @@
 import * as types from './mutation-types'
 
 const mutations = {
-  [types.SET_DATA] (state, data) {
-    state.data = data
+  [types.SET_ACCOUNT] (state, account) {
+    state.account = account
   }
 }
 export default mutations

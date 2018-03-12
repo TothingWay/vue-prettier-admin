@@ -80,7 +80,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('Login', this.loginForm).then(() => {
+          this.$store.dispatch('login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({
               path: '/'
@@ -89,7 +89,7 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          // 表单验证失败
           return false
         }
       })
@@ -108,7 +108,7 @@ $light_gray:#eee;
   width: 100%;
   background-color: $bg;
   input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
+    box-shadow: 0 0 0px 1000px #293444 inset !important;
     -webkit-text-fill-color: #fff !important;
   }
   input {

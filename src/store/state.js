@@ -1,4 +1,4 @@
 const state = {
-  data: {}
+  account: {}
 }
 export default state

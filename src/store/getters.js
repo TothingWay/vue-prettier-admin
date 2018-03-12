@@ -1,1 +1,1 @@
-export const data = state => state.data
+export const account = state => state.account

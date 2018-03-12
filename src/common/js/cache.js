@@ -9,3 +9,8 @@ export function saveLogin (user) {
 export function loadLogin () {
   return storage.get(loginKey, {})
 }
+
+export function clearLogin () {
+  storage.remove(loginKey)
+  return {}
+}

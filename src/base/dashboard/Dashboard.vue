@@ -39,10 +39,9 @@
         </div>
         <el-dropdown>
           <div class="el-dropdown-link">
-            <div class="avatar">
-              <img class="avatar-img" src="">
-            </div>
-            <i class="el-icon-caret-bottom"></i>
+            <span class="el-dropdown-link">
+              <span class="username">admin</span><i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
           </div>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>github</el-dropdown-item>
@@ -137,23 +136,8 @@ export default {
   .el-dropdown {
     position: absolute;
     right: 15px;
-    top: 5px;
-  }
-  .el-icon-caret-bottom {
-    position: relative;
-    top: -13px;
-  }
-  .avatar {
-    display: inline-block;
-    border-radius: 10px;
-    width: 40px;
-    height: 40px;
-    background: #ccc;
-    overflow: hidden;
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      border: none;
+    top: 16px;
+    .el-dropdown-link {
       outline: 0;
     }
   }
