@@ -63,7 +63,12 @@ exports.cssLoaders = function (options) {
       {
         loader: 'sass-resources-loader',
         options: {
-          resources: path.resolve(__dirname, '../src/styles/index.scss')
+          resources: [
+            path.resolve(__dirname, '../src/styles/index.scss'),
+            path.resolve(__dirname, '../src/styles/variables.scss'),
+            path.resolve(__dirname, '../src/styles/mixin.scss'),
+            path.resolve(__dirname, '../src/styles/reset-element-ui.scss')
+          ]
         }
       }
     ),

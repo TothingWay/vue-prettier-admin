@@ -29,6 +29,7 @@
 <script>
 import { testLogin } from 'utils/validate'
 export default {
+  name: 'login',
   data () {
     const validateUsername = (rule, value, callback) => {
       if (!testLogin(value)) {
@@ -119,7 +120,7 @@ export default {
     width: 85%;
   }
   .svg-container {
-    padding: 6px 0 6px 15px;
+    padding: 6px 5px 6px 15px;
     color: $dark_gray;
     vertical-align: middle;
     width: 30px;

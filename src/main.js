@@ -4,10 +4,14 @@ import router from './router'
 import store from 'store'
 
 import 'normalize.css' // A modern alternative to CSS resets
+
+import '@/styles/variables.scss' // global variables
+import '@/styles/mixin.scss' // global mixin
+import '@/styles/reset-element-ui.scss' // global element-ui
 import '@/styles/index.scss' // global css
 
 import 'icons' // svg-icon
-import 'assets/js/permissions.js'
+// import 'assets/js/permissions.js'
 
 // 按需引入elementUI
 import {

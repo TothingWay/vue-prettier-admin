@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^1.8.4",
     "element-ui": "^2.2.2",
     "js-cookie": "^2.2.0",
     "normalize.css": "^8.0.0",

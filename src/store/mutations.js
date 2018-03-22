@@ -1,5 +1,6 @@
 import * as types from './mutation-types'
 import { constantRouterMap } from '@/router'
+import Cookies from 'js-cookie'
 
 const mutations = {
   [types.SET_TOKEN] (state, token) {
@@ -14,6 +15,14 @@ const mutations = {
   [types.SET_ROUTERS] (state, routers) {
     state.addRouters = routers
     state.routers = constantRouterMap.concat(routers)
+  },
+  [types.TOGGLE_SIDEBAR] (state) {
+    if (state.sidebar) {
+      Cookies.set('sidebarStatus', 1) // 打开状态
+    } else {
+      Cookies.set('sidebarStatus', 0) // 关闭状态
+    }
+    state.sidebar = !state.sidebar
   }
 }
 export default mutations

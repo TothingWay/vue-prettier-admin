@@ -65,3 +65,8 @@ export const generateRoutes = function ({ commit }, data) {
     resolve()
   })
 }
+
+// 导航切换
+export const toggleSideBar = function ({ commit }) {
+  commit(types.TOGGLE_SIDEBAR)
+}
