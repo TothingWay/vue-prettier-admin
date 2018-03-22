@@ -1,22 +1,20 @@
 <template>
   <div class="login">
-    <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
-      class="card-box login-form">
+    <el-form :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px" class="card-box login-form">
       <h3 class="title">Admin</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
-          <icon type="user"/>
+          <icon type="user" />
         </span>
         <el-input name="username" type="text" v-model="loginForm.username" placeholder="username" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
-          <icon type="password"/>
+          <icon type="password" />
         </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password"
-          placeholder="password"></el-input>
+        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="password"></el-input>
         <span class="show-pwd" @click="showPwd">
-          <icon type="eye"/>
+          <icon type="eye" />
         </span>
       </el-form-item>
       <el-form-item>
@@ -29,30 +27,29 @@
 </template>
 
 <script>
-import { testForm } from 'common/js/utils'
-
+import { testLogin } from 'utils/validate'
 export default {
   data () {
     const validateUsername = (rule, value, callback) => {
-      if (!testForm(value)) {
-        callback(new Error('用户名5~16位（字母，数字，下划线，减号）'))
+      if (!testLogin(value)) {
+        callback(new Error('用户名必须为5~16位,字母，数字，下划线，减号'))
       } else {
         callback()
       }
     }
     const validatePass = (rule, value, callback) => {
-      if (!testForm(value)) {
-        callback(new Error('密码5~16位（字母，数字，下划线，减号）'))
+      if (!testLogin(value)) {
+        callback(new Error('密码必须为5~16位字母，数字，下划线，减号'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        username: '',
+        password: ''
       },
-      loginRules: {
+      rules: {
         username: [{
           required: true,
           trigger: 'blur',
@@ -80,7 +77,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('login', this.loginForm).then(() => {
+          this.$store.dispatch('loginAction', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({
               path: '/'
@@ -98,15 +95,11 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
-
 .login /deep/ {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: $login_bg;
   input:-webkit-autofill {
     box-shadow: 0 0 0px 1000px #293444 inset !important;
     -webkit-text-fill-color: #fff !important;

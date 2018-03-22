@@ -1,1 +1,5 @@
-export const SET_ACCOUNT = 'SET_ACCOUNT'
+export const SET_TOKEN = 'SET_TOKEN'
+export const SET_ROLES = 'SET_ROLES'
+export const SET_NAME = 'SET_NAME'
+export const SET_ROUTERS = 'SET_ROUTERS'
+export const SET_ADDROUTERS = 'SET_ADDROUTERS'

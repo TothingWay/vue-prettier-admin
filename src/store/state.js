@@ -1,4 +1,10 @@
+import { getToken } from '../utils/auth'
+import { constantRouterMap } from '@/router'
 const state = {
-  account: {}
+  token: getToken(),
+  name: '',
+  roles: [],
+  routers: constantRouterMap,
+  addRouters: []
 }
 export default state
