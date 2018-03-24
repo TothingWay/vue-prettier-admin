@@ -5,7 +5,7 @@ import { getToken } from 'utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: '', // api的base_url
+  baseURL: 'https://easy-mock.com/mock/5950a2419adc231f356a6636/vue-admin', // api的base_url
   timeout: 5000 // request timeout
 })
 

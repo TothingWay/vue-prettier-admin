@@ -28,10 +28,7 @@ export default {
   methods: {
     getBreadcrumb () {
       let matched = this.$route.matched.filter(item => item.name)
-      console.log(this.$route.matched)
-
       const first = matched[0]
-      console.log(first)
       if (first && first.name !== 'overview') {
         matched = [{path: '/overview', meta: { title: '总览' }}].concat(matched)
       }

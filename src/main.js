@@ -11,7 +11,7 @@ import '@/styles/reset-element-ui.scss' // global element-ui
 import '@/styles/index.scss' // global css
 
 import 'icons' // svg-icon
-// import 'assets/js/permissions.js'
+import 'assets/js/permissions.js'
 
 // 按需引入elementUI
 import {
@@ -20,7 +20,6 @@ import {
   Form,
   FormItem,
   Input,
-  Icon,
   Button,
   Menu,
   Submenu,
@@ -30,22 +29,6 @@ import {
   DropdownMenu,
   DropdownItem,
   Select,
-  Option,
-  Table,
-  TableColumn,
-  Pagination,
-  Dialog,
-  Radio,
-  RadioGroup,
-  Switch,
-  MessageBox,
-  Message,
-  Popover,
-  Tooltip,
-  Checkbox,
-  CheckboxGroup,
-  DatePicker,
-  Upload,
   Breadcrumb,
   BreadcrumbItem
 } from 'element-ui'
@@ -60,7 +43,6 @@ Vue.use(Col)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
-Vue.use(Icon)
 Vue.use(Button)
 Vue.use(Menu)
 Vue.use(Submenu)
@@ -70,25 +52,8 @@ Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Select)
-Vue.use(Option)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Pagination)
-Vue.use(Dialog)
-Vue.use(Radio)
-Vue.use(RadioGroup)
-Vue.use(Checkbox)
-Vue.use(CheckboxGroup)
-Vue.use(Switch)
-Vue.use(Popover)
-Vue.use(Tooltip)
-Vue.use(DatePicker)
-Vue.use(Upload)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
-Vue.prototype.$msgbox = MessageBox
-Vue.prototype.$confirm = MessageBox.confirm
-Vue.prototype.$message = Message
 
 Vue.config.productionTip = false
 

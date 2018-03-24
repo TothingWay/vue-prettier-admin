@@ -6,9 +6,9 @@ export function login (username, password) {
     password
   } */
   return request({
-    url: '',
-    method: 'get',
-    params: {
+    url: '/user/login',
+    method: 'post',
+    data: {
       username,
       password
     }
@@ -21,7 +21,7 @@ export function getUserInfo (token) {
     password
   } */
   return request({
-    url: '',
+    url: '/user/info',
     method: 'get',
     params: {
       token
