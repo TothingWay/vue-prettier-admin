@@ -6,12 +6,10 @@ export function login (username, password) {
     password
   } */
   return request({
-    url: '/login/cellphone',
+    url: '',
     method: 'get',
     params: {
-      // 测试参数
-      phone: username,
-      // username,
+      username,
       password
     }
   })
@@ -23,12 +21,10 @@ export function getUserInfo (token) {
     password
   } */
   return request({
-    url: '/user/detail',
+    url: '',
     method: 'get',
     params: {
-      // 测试参数
-      uid: token
-      // token
+      token
     }
   })
 }

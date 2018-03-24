@@ -18,9 +18,9 @@ const mutations = {
   },
   [types.TOGGLE_SIDEBAR] (state) {
     if (state.sidebar) {
-      Cookies.set('sidebarStatus', 1) // 打开状态
+      Cookies.set('sidebarStatus', 1)
     } else {
-      Cookies.set('sidebarStatus', 0) // 关闭状态
+      Cookies.set('sidebarStatus', 0)
     }
     state.sidebar = !state.sidebar
   }

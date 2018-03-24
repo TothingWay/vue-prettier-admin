@@ -9,9 +9,7 @@ export const loginAction = function ({ commit }, userInfo) {
   const username = userInfo.username.trim()
   return new Promise((resolve, reject) => {
     login(username, userInfo.password).then(res => {
-      // 测试参数
-      const token = res.data.account.id
-      // const token = res.headers.token
+      const token = res.data.token
       setToken('__token__', token) // 登录成功后将token存储在cookie之中
       commit(types.SET_TOKEN, token)
       resolve()
@@ -40,10 +38,8 @@ export const getUserInfoAction = function ({ commit, state }) {
         reject('error')
       }
       const data = res.data
-      // 测试数据
-      commit(types.SET_ROLES, data.bindings)
-      // commit('SET_ROLES', data.roles)
-      // commit('SET_NAME', data.name)
+      commit('SET_ROLES', data.roles)
+      commit('SET_NAME', data.name)
       resolve(res)
     }).catch(error => {
       reject(error)

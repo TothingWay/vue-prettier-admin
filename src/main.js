@@ -45,7 +45,9 @@ import {
   Checkbox,
   CheckboxGroup,
   DatePicker,
-  Upload
+  Upload,
+  Breadcrumb,
+  BreadcrumbItem
 } from 'element-ui'
 
 // 按需引入collapse过度组件
@@ -82,6 +84,8 @@ Vue.use(Popover)
 Vue.use(Tooltip)
 Vue.use(DatePicker)
 Vue.use(Upload)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
