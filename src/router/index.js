@@ -95,7 +95,7 @@ export const asyncRouterMap = [
         icon: 'key',
         title: '权限测试',
         meta: {
-          roles: ['admin']
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       }
     }]
