@@ -9,6 +9,13 @@ const page404 = () => import('@/base/errorPage/404')
 const overview = () => import('@/components/overview')
 const login = () => import('@/components/login')
 
+const iconExample = () => import('@/components/iconExample')
+const permission = () => import('@/components/permission')
+const button = () => import('@/components/button')
+const tableMain = () => import('@/components/table')
+const baseTable = () => import('@/components/table/base')
+const borderTable = () => import('@/components/table/border')
+
 /**
  * 路由配置项
  *
@@ -61,4 +68,87 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  {
+    path: '/icon',
+    component: layout,
+    children: [{
+      path: 'index',
+      component: iconExample,
+      name: 'iconExample',
+      meta: {
+        icon: 'icon',
+        title: 'icon'
+      }
+    }]
+  },
+  {
+    path: '/permission',
+    component: layout,
+    meta: {
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [{
+      path: 'index',
+      component: permission,
+      name: 'permission',
+      meta: {
+        icon: 'key',
+        title: '权限测试',
+        meta: {
+          roles: ['admin']
+        }
+      }
+    }]
+  },
+  {
+    path: '/example',
+    component: layout,
+    meta: {
+      icon: 'sort_light',
+      title: '无限嵌套'
+    },
+    children: [
+      {
+        path: '/example/table',
+        component: tableMain,
+        name: 'tableMain',
+        meta: {
+          icon: 'tables',
+          title: '表格'
+        },
+        children: [
+          {
+            path: 'baseTable',
+            component: baseTable,
+            name: 'baseTable',
+            meta: {
+              title: '基本表格'
+            }
+          },
+          {
+            path: 'borderTable',
+            component: borderTable,
+            name: 'borderTable',
+            meta: {
+              title: '带边框表格'
+            }
+          }
+        ]
+      },
+      {
+        path: 'button',
+        component: button,
+        name: 'buttons',
+        meta: {
+          icon: 'button',
+          title: '按钮'
+        }
+      }
+    ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
