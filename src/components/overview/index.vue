@@ -1,21 +1,30 @@
 <template>
   <div class="overview">
     <div class="middle">
-      <h1 class="title">{{username}}，欢迎回来</h1>
-      <p class="disc">最近登录：{{lastTime}}</p>
+      <h1 class="title">{{name}}，欢迎回来</h1>
+      <p class="disc">最近登录：{{formatDate(lastTime, 'YYYY-MM-DD hh:mm:ss')}}</p>
     </div>
     <img :src="welcomeBg" class="bg-img">
   </div>
 </template>
 
 <script>
+import { formatDate } from 'utils'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      username: 'admin',
-      lastTime: '2018-3-24 16:12:49',
+      lastTime: new Date(),
       welcomeBg: require('assets/images/welcome.svg')
     }
+  },
+  computed: {
+    ...mapGetters([
+      'name'
+    ])
+  },
+  methods: {
+    formatDate
   }
 }
 </script>

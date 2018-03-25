@@ -9,7 +9,8 @@ export const loginAction = function ({ commit }, userInfo) {
   const username = userInfo.username.trim()
   return new Promise((resolve, reject) => {
     login(username, userInfo.password).then(res => {
-      const token = res.data.data.token
+      // response data
+      const token = res.data.token
       setToken(token) // 登录成功后将token存储在cookie之中
       commit(types.SET_TOKEN, token)
       resolve()
@@ -23,7 +24,6 @@ export const loginAction = function ({ commit }, userInfo) {
 export const logOutAction = function ({ commit }) {
   return new Promise(resolve => {
     commit(types.SET_TOKEN, '')
-    commit(types.SET_ROLES, [])
     removeToken()
     resolve()
   })
@@ -37,7 +37,8 @@ export const getUserInfoAction = function ({ commit, state }) {
         // eslint-disable-next-line
         reject('error')
       }
-      const data = res.data.data
+      // response data
+      const data = res.data
       commit('SET_ROLES', data.roles)
       commit('SET_NAME', data.name)
       resolve(res)

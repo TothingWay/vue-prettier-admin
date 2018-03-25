@@ -7,8 +7,8 @@
         {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>修改密码</el-dropdown-item>
-        <el-dropdown-item>登出</el-dropdown-item>
+        <!-- <el-dropdown-item>修改密码</el-dropdown-item> -->
+        <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </el-menu>
@@ -32,6 +32,11 @@ export default {
   methods: {
     toggleSideBar () {
       this.$store.dispatch('toggleSideBar')
+    },
+    logout () {
+      this.$store.dispatch('logOutAction').then(() => {
+        location.reload() // 为了重新实例化vue-router对象 避免bug
+      })
     }
   }
 }
