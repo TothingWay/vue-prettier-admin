@@ -21,8 +21,6 @@
 * Svg Sprite 图标
 * 401/404错误页面
 
-Ps：写了一篇关于 Svg Sprite 图标的文章 [如何优雅的使用icon？](https://juejin.im/post/5ab5e624f265da23906bf749) 
-
 ## 项目结构
 
 <pre>
