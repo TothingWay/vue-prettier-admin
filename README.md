@@ -60,6 +60,11 @@ npm run dev
 # 项目打包上线
 npm run build
 ```
+## 登录
+
+1. 账号：admin  密码：admin
+2. 账号：editor 密码：editor
+
 ## 权限验证
 
 不同的权限对应着不同的路由，同时侧边栏也需根据不同的权限，异步生成。
