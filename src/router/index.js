@@ -15,6 +15,7 @@ const button = () => import('@/components/button')
 const tableMain = () => import('@/components/table')
 const baseTable = () => import('@/components/table/base')
 const borderTable = () => import('@/components/table/border')
+const clipboard = () => import('@/components/clipboard')
 
 /**
  * 路由配置项
@@ -145,6 +146,19 @@ export const asyncRouterMap = [
         }
       }
     ]
+  },
+  {
+    path: '/clipboard',
+    component: layout,
+    children: [{
+      path: 'index',
+      component: clipboard,
+      name: 'clipboard',
+      meta: {
+        icon: 'clipboard',
+        title: '复制粘贴'
+      }
+    }]
   },
   {
     path: '*',
