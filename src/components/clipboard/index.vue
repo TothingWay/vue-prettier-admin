@@ -1,6 +1,6 @@
 <template>
   <wrap>
-    <el-input v-model="input"></el-input>
+    <el-input class="input" v-model="input"></el-input>
     <el-button plain @click="handleCopy(input, $event)">复制</el-button>
   </wrap>
 </template>
@@ -22,4 +22,7 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.input {
+  width: 400px;
+}
 </style>

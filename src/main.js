@@ -35,7 +35,8 @@ import {
   Tooltip,
   Card,
   Table,
-  TableColumn
+  TableColumn,
+  Message
 } from 'element-ui'
 
 // 按需引入collapse过度组件
@@ -65,7 +66,7 @@ Vue.use(Tooltip)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
-
+Vue.prototype.$message = Message
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
