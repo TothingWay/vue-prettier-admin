@@ -1,18 +1,53 @@
 import * as types from './mutation-types'
 import { setToken, removeToken } from 'utils/auth'
-import { login, getUserInfo } from '@/api/login'
+import { loginByUsername, logout, getUserInfo } from '@/api/login'
 import { asyncRouterMap } from '@/router'
-import { filterAsyncRouter } from 'utils/permission'
+// import { Message } from 'element-ui'
 
-// 登录页面——登录
-export const loginAction = function ({ commit }, userInfo) {
+/**
+ * 通过meta.role判断是否与当前用户权限匹配
+ * @param roles
+ * @param route
+ */
+function hasPermission (roles, route) {
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => route.meta.roles.indexOf(role) >= 0)
+  } else {
+    return true
+  }
+}
+
+/**
+ * 递归过滤异步路由表，返回符合用户角色权限的路由表
+ * @param asyncRouterMap
+ * @param roles
+ */
+function filterAsyncRouter (asyncRouterMap, roles) {
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (hasPermission(roles, route)) {
+      if (route.children && route.children.length) {
+        route.children = filterAsyncRouter(route.children, roles)
+      }
+      return true
+    }
+    return false
+  })
+  return accessedRouters
+}
+
+// i18n
+export const setLanguage = function ({ commit }, language) {
+  commit(types.SET_LANGUAGE, language)
+}
+
+// 用户名登录
+export const LoginByUsername = function ({ commit }, userInfo) {
   const username = userInfo.username.trim()
   return new Promise((resolve, reject) => {
-    login(username, userInfo.password).then(res => {
-      // response data
-      const token = res.data.token
-      setToken(token) // 登录成功后将token存储在cookie之中
-      commit(types.SET_TOKEN, token)
+    loginByUsername(username, userInfo.password).then(response => {
+      const data = response.data
+      commit(types.SET_TOKEN, data.token)
+      setToken(response.data.token)
       resolve()
     }).catch(error => {
       reject(error)
@@ -20,36 +55,45 @@ export const loginAction = function ({ commit }, userInfo) {
   })
 }
 
-// 登出
-export const logOutAction = function ({ commit }) {
-  return new Promise(resolve => {
-    commit(types.SET_TOKEN, '')
-    removeToken()
-    resolve()
-  })
-}
-
 // 获取用户信息
-export const getUserInfoAction = function ({ commit, state }) {
+export const GetUserInfo = function ({ commit, state }) {
   return new Promise((resolve, reject) => {
-    getUserInfo(state.token).then(res => {
-      if (!res.data) {
-        // eslint-disable-next-line
-        reject('error')
+    getUserInfo(state.user.token).then(response => {
+      if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
+        reject(new Error('error'))
       }
-      // response data
-      const data = res.data
-      commit('SET_ROLES', data.roles)
-      commit('SET_NAME', data.name)
-      resolve(res)
+      const data = response.data
+
+      if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+        commit(types.SET_ROLES, data.roles)
+      } else {
+        reject(new Error('getInfo: roles must be a non-null array !'))
+      }
+
+      commit(types.SET_NAME, data.name)
+      resolve(response)
     }).catch(error => {
       reject(error)
     })
   })
 }
 
-// 动态生成路由
-export const generateRoutes = function ({ commit }, data) {
+// 登出
+export const LogOut = function ({ commit, state }) {
+  return new Promise((resolve, reject) => {
+    logout(state.user.token).then(() => {
+      commit(types.SET_TOKEN, '')
+      commit(types.SET_ROLES, [])
+      removeToken()
+      resolve()
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+// 生成路由
+export const GenerateRoutes = function ({ commit }, data) {
   return new Promise(resolve => {
     const { roles } = data
     let accessedRouters
@@ -63,7 +107,47 @@ export const generateRoutes = function ({ commit }, data) {
   })
 }
 
-// 导航切换
+// 侧边栏切换
 export const toggleSideBar = function ({ commit }) {
   commit(types.TOGGLE_SIDEBAR)
+}
+
+// 关闭侧边栏
+export const closeSideBar = function ({ commit }, { withoutAnimation }) {
+  commit(types.CLOSE_SIDEBAR, withoutAnimation)
+}
+
+// 设备切换
+export const toggleDevice = function ({ commit }, device) {
+  commit(types.TOGGLE_DEVICE, device)
+}
+
+// tabs
+export const currentPageSet = function ({ commit }, name) {
+  commit(types.TAB_SET, name)
+}
+
+export const addTab = function ({ commit }, tabName) {
+  commit(types.ADD_TAB, tabName)
+}
+
+export const delTab = function ({ commit, state }, tabName) {
+  return new Promise((resolve) => {
+    commit(types.DEL_TAB, tabName)
+    resolve([...state.tabs.pageOpenedList])
+  })
+}
+
+export const delOthersTabs = function ({ commit, state }, tabName) {
+  return new Promise(resolve => {
+    commit(types.DEL_OTHERS_TABS, tabName)
+    resolve([...state.tabs.pageOpenedList])
+  })
+}
+
+export const delAllTabs = function ({ commit, state }) {
+  return new Promise(resolve => {
+    commit(types.DEL_ALL_TABS)
+    resolve([...state.tabs.pageOpenedList])
+  })
 }

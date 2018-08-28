@@ -1,38 +1,4 @@
-/*
-  登录验证
-  只能是字母（大小写）、数字、下划线(_)、减号（-）且长度为 5~16之间
- */
-export function testLogin (str) {
-  const re = /^[a-zA-Z0-9_-]{5,16}$/
-  return re.test(str)
-}
-/*
-  邮箱验证
-  1. @之前必须有内容且只能是字母（大小写）、数字、下划线(_)、减号（-）、点（.）
-  2.@和最后一个点（.）之间必须有内容且只能是字母（大小写）、数字、点（.）、减号（-），且两个点不能挨着
-  3.最后一个点（.）之后必须有内容且内容只能是字母（大小写）、数字且长度为大于等于2个字节，小于等于6个字节
- */
-export function testEmail (str) {
-  const re = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
-  return re.test(str)
-}
-/*
-  登录验证
-  1. 中国电信号段 133、149、153、173、177、180、181、189、199
-  2. 中国联通号段 130、131、132、145、155、156、166、175、176、185、186
-  3. 中国移动号段 134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188、198
- */
-export function testPhone (str) {
-  const re = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-  return re.test(str)
-}
-
-// 新建岗位多选按钮验证
-export function testCheckBox (arr) {
-  return arr.length > 0
-}
-
-// 输入不能为空且不能为纯空格
-export function isEmpty (str) {
-  return str.trim() === ''
+export function isvalidUsername (str) {
+  const validMap = ['admin', 'editor']
+  return validMap.indexOf(str.trim()) >= 0
 }

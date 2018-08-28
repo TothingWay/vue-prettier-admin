@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="19px" viewBox="0 0 24 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>backspace - material</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-544.000000, -150.000000)" fill="#000000">
+            <path d="M562.984,163.2 L559.432,159.6 L562.984,156 L561.568,154.584 L558.016,158.184 L554.416,154.584 L553,156 L556.6,159.6 L553,163.2 L554.416,164.616 L558.016,161.016 L561.568,164.616 L562.984,163.2 Z M565.984,150.6 C566.528003,150.6 566.999998,150.799998 567.4,151.2 C567.800002,151.600002 568,152.071997 568,152.616 L568,166.584 C568,167.128003 567.800002,167.599998 567.4,168 C566.999998,168.400002 566.528003,168.6 565.984,168.6 L550.984,168.6 C550.343997,168.6 549.816002,168.304003 549.4,167.712 L544,159.6 L549.4,151.488 C549.816002,150.895997 550.343997,150.6 550.984,150.6 L565.984,150.6 Z" id="backspace---material"></path>
+        </g>
+    </g>
+</svg>

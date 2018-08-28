@@ -1,9 +1,9 @@
-// 金钱：分转元
-export function toMoney (num) {
-  num = num.toFixed(2)
-  num = parseFloat(num)
-  num = num.toLocaleString()
-  return num
+export function param2Obj (url) {
+  const search = url.split('?')[1]
+  if (!search) {
+    return {}
+  }
+  return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
 function padLeftZero (str) {
@@ -28,4 +28,4 @@ export function formatDate (date, fmt) {
     }
   }
   return fmt
-};
+}

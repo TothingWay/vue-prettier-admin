@@ -1,7 +1,11 @@
-export const token = state => state.token
-export const name = state => state.name
-export const roles = state => state.roles
-export const routers = state => state.routers
-export const permissionRouters = state => state.routers
-export const addRouters = state => state.addRouters
+export const language = state => state.language
+export const device = state => state.device
 export const sidebar = state => state.sidebar
+export const name = state => state.user.name
+export const token = state => state.user.token
+export const roles = state => state.user.roles
+export const addRouters = state => state.user.addRouters
+export const routers = state => state.user.routers
+export const pageOpenedList = state => state.tabs.pageOpenedList
+export const pageCachedList = state => state.tabs.pageCachedList
+export const currentPage = state => state.tabs.currentPage

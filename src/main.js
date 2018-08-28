@@ -1,78 +1,63 @@
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import router from './router'
 import store from 'store'
 
-import 'normalize.css' // A modern alternative to CSS resets
-
-import '@/styles/variables.scss' // global variables
-import '@/styles/mixin.scss' // global mixin
-import '@/styles/reset-element-ui.scss' // global element-ui
-import '@/styles/index.scss' // global css
-
-import 'icons' // svg-icon
-import Wrap from '@/base/layout/wrap'
-import 'assets/js/permissions.js'
-
-// 按需引入elementUI
+import 'icons' // icon
+import i18n from './lang' // Internationalization
+import ElementLocale from 'element-ui/lib/locale'
+import './mock' // simulation data
+import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import './permission'
+import Scroll from '@/components/Scroll/scroll'
+import Container from '@/components/container'
 import {
-  Row,
-  Col,
+  Button,
   Form,
   FormItem,
-  Input,
-  Button,
-  Menu,
-  Submenu,
-  MenuItemGroup,
-  MenuItem,
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Select,
   Breadcrumb,
   BreadcrumbItem,
+  Menu,
+  Submenu,
+  MenuItem,
+  Input,
+  Message,
   Tooltip,
-  Card,
-  Table,
-  TableColumn,
-  Message
+  Tabs,
+  TabPane,
+  Icon
 } from 'element-ui'
-
-// 按需引入collapse过度组件
-import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-Vue.component(CollapseTransition.name, CollapseTransition)
-
-Vue.component('wrap', Wrap)
-
-// 注册按需引入的elementUI组件
-Vue.use(Row)
-Vue.use(Col)
+Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
-Vue.use(Input)
-Vue.use(Button)
-Vue.use(Menu)
-Vue.use(Submenu)
-Vue.use(MenuItemGroup)
-Vue.use(MenuItem)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
-Vue.use(Select)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)
+Vue.use(Input)
 Vue.use(Tooltip)
-Vue.use(Card)
-Vue.use(Table)
-Vue.use(TableColumn)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Icon)
+Vue.component('scroll', Scroll)
+Vue.component('container', Container)
 Vue.prototype.$message = Message
+Vue.prototype.$ELEMENT = {
+  size: 'small'
+}
+ElementLocale.i18n((key, value) => i18n.t(key, value))
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
-})
+}).$mount('#app')
