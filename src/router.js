@@ -53,7 +53,19 @@ export const constantRouterMap = [
       name: 'home',
       meta: { title: 'home', icon: 'dashboard' }
     }]
-  }
+  } /*
+  {
+    path: '',
+    component: Layout,
+    redirect: 'test',
+    // hidden: true,
+    children: [{
+      path: 'test',
+      component: () => import('~/test'),
+      name: 'test',
+      meta: { title: 'test', icon: 'dashboard' }
+    }]
+  } */
 ]
 
 export default new Router({
