@@ -1,5 +1,5 @@
 <template>
-  <scroll :data="routers" :hasBorder="false">
+  <scroll :data="routers">
     <el-menu
       mode="vertical"
       :show-timeout="200"

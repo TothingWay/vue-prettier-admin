@@ -1,7 +1,7 @@
 export default {
   route: {
     home: '首页',
-    example: '例子'
+    table: '表格'
   },
   navbar: {
     logOut: '退出登录',
@@ -18,11 +18,6 @@ export default {
     any: '随便填',
     validateUsername: '请输入正确的用户名',
     validatePassword: '密码不能小于6位'
-  },
-  tabs: {
-    close: '关闭',
-    closeOthers: '关闭其它',
-    closeAll: '关闭所有'
   },
   tagsView: {
     refresh: '刷新',

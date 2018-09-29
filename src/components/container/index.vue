@@ -1,5 +1,5 @@
 <template>
-  <scroll :full="full" :card="card" :scrollbar="scrollbar">
+  <scroll :full="full" :card="card" :scrollbar="scrollbar" hasBorder>
     <div class="sticky-container">
       <div class="sticky-wrap">
         <slot/>

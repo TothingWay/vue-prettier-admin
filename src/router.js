@@ -53,19 +53,7 @@ export const constantRouterMap = [
       name: 'home',
       meta: { title: 'home', icon: 'dashboard' }
     }]
-  } /*
-  {
-    path: '',
-    component: Layout,
-    redirect: 'test',
-    // hidden: true,
-    children: [{
-      path: 'test',
-      component: () => import('~/test'),
-      name: 'test',
-      meta: { title: 'test', icon: 'dashboard' }
-    }]
-  } */
+  }
 ]
 
 export default new Router({
@@ -74,16 +62,17 @@ export default new Router({
   routes: constantRouterMap
 })
 export const asyncRouterMap = [
-  /* {
+  {
     path: '',
     component: Layout,
-    redirect: 'example',
+    redirect: 'table',
+    // hidden: true,
     children: [{
-      path: 'example',
-      component: () => import('~/example'),
-      name: 'example',
-      meta: { title: 'example', icon: 'dashboard', noCache: true }
+      path: 'table',
+      component: () => import('~/table'),
+      name: 'table',
+      meta: { title: 'table', icon: 'table', noCache: true }
     }]
-  }, */
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]

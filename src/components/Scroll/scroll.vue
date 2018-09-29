@@ -123,7 +123,7 @@ export default {
     },
     hasBorder: {
       type: Boolean,
-      default: true
+      default: false
     },
     stopPropagation: {
       type: Boolean,
@@ -180,8 +180,8 @@ export default {
         mouseWheel: this.mouseWheel,
         bounce: this.bounce,
         zoom: this.zoom,
-        stopPropagation: this.stopPropagation,
-        eventPassthrough: 'horizontal'
+        stopPropagation: this.stopPropagation
+        // eventPassthrough: 'horizontal'
       }
 
       this.scroll = new BScroll(this.$refs.wrapper, options)

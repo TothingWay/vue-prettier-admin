@@ -5,3 +5,9 @@
     width: calc(100% - 20px);
   }
 }
+
+// 重置 table 组件默认宽度，配合 scroll 组件完成横向滚动
+.el-table {
+  min-width: 100%;
+  max-width: none;
+}

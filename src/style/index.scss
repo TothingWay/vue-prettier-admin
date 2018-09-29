@@ -38,3 +38,11 @@ div:focus{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+// 表格滚动
+.table-scroll {
+  .scroll-content {
+    display: inline-block;
+    min-width: 100%;
+  }
+}
