@@ -1,7 +1,8 @@
 export default {
   route: {
     home: '首页',
-    table: '表格'
+    table: '表格',
+    foot: '完美底部'
   },
   navbar: {
     logOut: '退出登录',

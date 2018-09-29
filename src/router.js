@@ -74,5 +74,17 @@ export const asyncRouterMap = [
       meta: { title: 'table', icon: 'table', noCache: true }
     }]
   },
+  {
+    path: '',
+    component: Layout,
+    redirect: 'stickyFooter',
+    // hidden: true,
+    children: [{
+      path: 'stickyFooter',
+      component: () => import('~/stickyFooter'),
+      name: 'stickyFooter',
+      meta: { title: 'foot', icon: 'foot', noCache: true }
+    }]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]

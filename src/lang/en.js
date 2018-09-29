@@ -1,7 +1,8 @@
 export default {
   route: {
     home: 'Home',
-    table: 'Table'
+    table: 'Table',
+    foot: 'Sticky Footer'
   },
   navbar: {
     logOut: 'Log Out',
