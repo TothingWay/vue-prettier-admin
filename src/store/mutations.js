@@ -42,51 +42,68 @@ const mutations = {
   [types.TOGGLE_DEVICE] (state, device) {
     state.device = device
   },
-  [types.TAB_SET] (state, name) {
-    state.tabs.currentPage = name
+  // tagsView
+  [types.ADD_VISITED_VIEW] (state, view) {
+    if (state.tagsView.visitedViews.some(v => v.path === view.path)) return
+    state.tagsView.visitedViews.push(
+      Object.assign({}, view, {
+        title: view.meta.title || '未命名'
+      })
+    )
   },
-  [types.ADD_TAB] (state, tab) {
-    if (state.tabs.pageOpenedList.some(v => v.path === tab.path)) return
-    state.tabs.pageOpenedList.push(Object.assign({}, tab, {
-      title: tab.meta.title
-    }))
-    if (!tab.meta.noCache) {
-      state.tabs.pageCachedList.push(tab.name)
+  [types.ADD_CACHED_VIEW] (state, view) {
+    if (state.tagsView.cachedViews.includes(view.name)) return
+    if (!view.meta.noCache) {
+      state.tagsView.cachedViews.push(view.name)
     }
   },
-  [types.DEL_TAB] (state, tabName) {
-    for (const [i, v] of state.tabs.pageOpenedList.entries()) {
-      if (v.name === tabName) {
-        state.tabs.pageOpenedList.splice(i, 1)
-        break
-      }
-    }
-    for (const i of state.tabs.pageCachedList) {
-      if (i === tabName) {
-        const index = state.tabs.pageCachedList.indexOf(i)
-        state.tabs.pageCachedList.splice(index, 1)
+  [types.DEL_VISITED_VIEW] (state, view) {
+    for (const [i, v] of state.tagsView.visitedViews.entries()) {
+      if (v.path === view.path) {
+        state.tagsView.visitedViews.splice(i, 1)
         break
       }
     }
   },
-  [types.DEL_OTHERS_TABS] (state, tabName) {
-    for (const [i, v] of state.tabs.pageOpenedList.entries()) {
-      if (v.name === tabName) {
-        state.tabs.pageOpenedList = state.tabs.pageOpenedList.slice(i, i + 1)
-        break
-      }
-    }
-    for (const i of state.tabs.pageCachedList) {
-      if (i === tabName) {
-        const index = state.tabs.pageCachedList.indexOf(i)
-        state.tabs.pageCachedList = state.tabs.pageCachedList.slice(index, index + 1)
+  [types.DEL_CACHED_VIEW] (state, view) {
+    for (const i of state.tagsView.cachedViews) {
+      if (i === view.name) {
+        const index = state.tagsView.cachedViews.indexOf(i)
+        state.tagsView.cachedViews.splice(index, 1)
         break
       }
     }
   },
-  [types.DEL_ALL_TABS] (state) {
-    state.tabs.pageOpenedList = []
-    state.tabs.pageCachedList = []
+  [types.DEL_OTHERS_VISITED_VIEWS] (state, view) {
+    for (const [i, v] of state.tagsView.visitedViews.entries()) {
+      if (v.path === view.path) {
+        state.tagsView.visitedViews = state.tagsView.visitedViews.slice(i, i + 1)
+        break
+      }
+    }
+  },
+  [types.DEL_OTHERS_CACHED_VIEWS] (state, view) {
+    for (const i of state.tagsView.cachedViews) {
+      if (i === view.name) {
+        const index = state.tagsView.cachedViews.indexOf(i)
+        state.tagsView.cachedViews = state.tagsView.cachedViews.slice(index, index + 1)
+        break
+      }
+    }
+  },
+  [types.DEL_ALL_VISITED_VIEWS] (state) {
+    state.tagsView.visitedViews = []
+  },
+  [types.DEL_ALL_CACHED_VIEWS] (state) {
+    state.tagsView.cachedViews = []
+  },
+  [types.UPDATE_VISITED_VIEW] (state, view) {
+    for (let v of state.tagsView.visitedViews) {
+      if (v.path === view.path) {
+        v = Object.assign(v, view)
+        break
+      }
+    }
   }
 }
 export default mutations

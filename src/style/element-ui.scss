@@ -1,0 +1,7 @@
+/* 重置 elementUI 样式 */
+@media (max-width: 500px) {
+  .el-message {
+    min-width: auto;
+    width: calc(100% - 20px);
+  }
+}

@@ -23,9 +23,3 @@ export default {
   }
 }
 </script>
-
-<style lang='scss' scoped>
-/deep/ .scroll-content {
-  border: 25px solid #f5f7fa;
-}
-</style>

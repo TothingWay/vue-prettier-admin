@@ -4,7 +4,7 @@
       <h1 class="title">{{name}}，欢迎回来</h1>
       <p class="disc">最近登录：{{formatDate(lastTime, 'YYYY-MM-DD hh:mm:ss')}}</p>
     </div>
-    <img :src="welcomeBg" class="bg-img">
+    <img draggable="false" :src="welcomeBg" class="bg-img">
   </div>
 </template>
 

@@ -16,10 +16,9 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  tabs: {
-    pageOpenedList: [],
-    pageCachedList: [],
-    currentPage: ''
+  tagsView: {
+    visitedViews: [],
+    cachedViews: []
   }
 }
 export default state

@@ -90,12 +90,12 @@ export default {
     .screenfull {
       height: 20px;
       position: relative;
-      top: 13px;
+      top: 14px;
     }
     .international{
       vertical-align: middle;
       position: relative;
-      top: -3px;
+      top: -1px;
       height: 20px;
       line-height: 20px;
       font-size: 18px;
@@ -105,7 +105,6 @@ export default {
       cursor: pointer;
       line-height: 1;
       position: relative;
-      top: -1px;
     }
   }
 }

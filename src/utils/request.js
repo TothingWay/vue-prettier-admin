@@ -5,8 +5,7 @@ import { getToken } from 'utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'https://api', // api的base_url
-  timeout: 5000 // request timeout
+  baseURL: 'https://api' // api的base_url
 })
 
 // request interceptor

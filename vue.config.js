@@ -1,21 +1,18 @@
 const path = require('path')
-// const fs = require('fs')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
   // 项目部署的基础路径
-  // 我们默认假设你的应用将会部署在域名的根部
   baseUrl: process.env.NODE_ENV === 'production' ? '/admin' : '/',
 
-  // 将构建好的文件输出到哪里
+  // 生产环境构建文件名
   outputDir: 'admin',
 
   // 是否为生产环境构建生成 source map？
   productionSourceMap: false,
 
   // 调整内部的 webpack 配置。
-  // 查阅 https://github.com/vuejs/vue-doc-zh-cn/vue-cli/webpack.md
   chainWebpack: config => {
     config.resolve.alias
       .set('~', resolve('src/views'))
@@ -46,7 +43,7 @@ module.exports = {
     // sass-loader 时，使用 `{ sass: { ... } }`。
     loaderOptions: {
       sass: {
-        data: `@import "@/style/index.scss";`
+        data: `@import "@/style/variables.scss"; @import "@/style/sidebar.scss"; @import "@/style/element-ui.scss"; @import "@/style/transition.scss"; @import "@/style/index.scss";`
       }
     }
   }

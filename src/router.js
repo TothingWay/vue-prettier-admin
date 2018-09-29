@@ -28,6 +28,17 @@ Vue.use(Router)
   }
 */
 export const constantRouterMap = [
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path*',
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
   { path: '/login', component: () => import('~/login'), hidden: true },
   { path: '/404', component: () => import('~/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('~/errorPage/401'), hidden: true },
@@ -35,12 +46,12 @@ export const constantRouterMap = [
     path: '',
     component: Layout,
     redirect: 'home',
-    hidden: true,
+    // hidden: true,
     children: [{
       path: 'home',
       component: () => import('~/home'),
       name: 'home',
-      meta: { title: 'home' }
+      meta: { title: 'home', icon: 'dashboard' }
     }]
   }
 ]
@@ -51,16 +62,16 @@ export default new Router({
   routes: constantRouterMap
 })
 export const asyncRouterMap = [
-  {
+  /* {
     path: '',
     component: Layout,
-    redirect: 'dashboard',
+    redirect: 'example',
     children: [{
-      path: 'dashboard',
-      component: () => import('~/dashboard'),
-      name: 'dashboard',
-      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+      path: 'example',
+      component: () => import('~/example'),
+      name: 'example',
+      meta: { title: 'example', icon: 'dashboard', noCache: true }
     }]
-  },
+  }, */
   { path: '*', redirect: '/404', hidden: true }
 ]

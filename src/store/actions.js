@@ -122,32 +122,87 @@ export const toggleDevice = function ({ commit }, device) {
   commit(types.TOGGLE_DEVICE, device)
 }
 
-// tabs
-export const currentPageSet = function ({ commit }, name) {
-  commit(types.TAB_SET, name)
+// tagsView
+export const addView = function ({ dispatch }, view) {
+  dispatch('addVisitedView', view)
+  dispatch('addCachedView', view)
+}
+export const addVisitedView = function ({ commit }, view) {
+  commit(types.ADD_VISITED_VIEW, view)
+}
+export const addCachedView = function ({ commit }, view) {
+  commit(types.ADD_CACHED_VIEW, view)
 }
 
-export const addTab = function ({ commit }, tabName) {
-  commit(types.ADD_TAB, tabName)
-}
-
-export const delTab = function ({ commit, state }, tabName) {
-  return new Promise((resolve) => {
-    commit(types.DEL_TAB, tabName)
-    resolve([...state.tabs.pageOpenedList])
-  })
-}
-
-export const delOthersTabs = function ({ commit, state }, tabName) {
+export const delView = function ({ dispatch, state }, view) {
   return new Promise(resolve => {
-    commit(types.DEL_OTHERS_TABS, tabName)
-    resolve([...state.tabs.pageOpenedList])
+    dispatch('delVisitedView', view)
+    dispatch('delCachedView', view)
+    resolve({
+      visitedViews: [...state.tagsView.visitedViews],
+      cachedViews: [...state.tagsView.cachedViews]
+    })
+  })
+}
+export const delVisitedView = function ({ commit, state }, view) {
+  return new Promise(resolve => {
+    commit(types.DEL_VISITED_VIEW, view)
+    resolve([...state.tagsView.visitedViews])
+  })
+}
+export const delCachedView = function ({ commit, state }, view) {
+  return new Promise(resolve => {
+    commit(types.DEL_CACHED_VIEW, view)
+    resolve([...state.tagsView.cachedViews])
   })
 }
 
-export const delAllTabs = function ({ commit, state }) {
+export const delOthersViews = function ({ dispatch, state }, view) {
   return new Promise(resolve => {
-    commit(types.DEL_ALL_TABS)
-    resolve([...state.tabs.pageOpenedList])
+    dispatch('delOthersVisitedViews', view)
+    dispatch('delOthersCachedViews', view)
+    resolve({
+      visitedViews: [...state.tagsView.visitedViews],
+      cachedViews: [...state.tagsView.cachedViews]
+    })
   })
+}
+export const delOthersVisitedViews = function ({ commit, state }, view) {
+  return new Promise(resolve => {
+    commit(types.DEL_OTHERS_VISITED_VIEWS, view)
+    resolve([...state.tagsView.visitedViews])
+  })
+}
+export const delOthersCachedViews = function ({ commit, state }, view) {
+  return new Promise(resolve => {
+    commit(types.DEL_OTHERS_CACHED_VIEWS, view)
+    resolve([...state.tagsView.cachedViews])
+  })
+}
+
+export const delAllViews = function ({ dispatch, state }, view) {
+  return new Promise(resolve => {
+    dispatch('delAllVisitedViews', view)
+    dispatch('delAllCachedViews', view)
+    resolve({
+      visitedViews: [...state.tagsView.visitedViews],
+      cachedViews: [...state.tagsView.cachedViews]
+    })
+  })
+}
+export const delAllVisitedViews = function ({ commit, state }) {
+  return new Promise(resolve => {
+    commit(types.DEL_ALL_VISITED_VIEWS)
+    resolve([...state.tagsView.visitedViews])
+  })
+}
+export const delAllCachedViews = function ({ commit, state }) {
+  return new Promise(resolve => {
+    commit(types.DEL_ALL_CACHED_VIEWS)
+    resolve([...state.tagsView.cachedViews])
+  })
+}
+
+export const updateVisitedView = function ({ commit }, view) {
+  commit(types.UPDATE_VISITED_VIEW, view)
 }

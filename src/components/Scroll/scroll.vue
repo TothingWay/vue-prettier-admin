@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapper" class="list-wrapper">
-    <div class="scroll-content" :class="{full: full, card: card}">
+    <div class="scroll-content" :class="{full: full, card: card, hasBorder: hasBorder}">
       <slot></slot>
       <slot name="pullup"
             :pullUpLoad="pullUpLoad"
@@ -77,7 +77,10 @@ export default {
     scrollbar: {
       type: null,
       default: function () {
-        return { fade: true }
+        return {
+          fade: true,
+          interactive: true
+        }
       }
     },
     pullDownRefresh: {
@@ -115,6 +118,14 @@ export default {
       default: true
     },
     card: {
+      type: Boolean,
+      default: false
+    },
+    hasBorder: {
+      type: Boolean,
+      default: true
+    },
+    stopPropagation: {
       type: Boolean,
       default: false
     }
@@ -168,8 +179,9 @@ export default {
         freeScroll: this.freeScroll,
         mouseWheel: this.mouseWheel,
         bounce: this.bounce,
-        zoom: this.zoom
-        // eventPassthrough: 'horizontal'
+        zoom: this.zoom,
+        stopPropagation: this.stopPropagation,
+        eventPassthrough: 'horizontal'
       }
 
       this.scroll = new BScroll(this.$refs.wrapper, options)
@@ -271,7 +283,7 @@ export default {
       })
     },
     _reboundPullDown () {
-      const {stopTime = 600} = this.pullDownRefresh
+      const { stopTime = 600 } = this.pullDownRefresh
       return new Promise((resolve) => {
         setTimeout(() => {
           this.isRebounding = true
@@ -325,6 +337,7 @@ export default {
 .list-wrapper {
   position: relative;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   .scroll-content {
     position: relative;
@@ -335,6 +348,9 @@ export default {
     &.card {
       background: #fff;
       padding: 25px;
+    }
+    &.hasBorder {
+      border: 25px solid #f5f7fa;
     }
   }
 }

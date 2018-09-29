@@ -1,30 +1,35 @@
 <template>
   <div v-if="!item.hidden&&item.children" class="menu-wrapper">
 
-      <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow" :to="resolvePath(onlyOneChild.path)">
+    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+      <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :type="onlyOneChild.meta.icon"/>
-          <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{generateTitle(onlyOneChild.meta.title)}}</span>
+          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="generateTitle(onlyOneChild.meta.title)" />
         </el-menu-item>
-      </router-link>
+      </a>
+    </template>
 
-      <el-submenu v-else :index="item.name||item.path">
-        <template slot="title">
-          <icon v-if="item.meta&&item.meta.icon" :type="item.meta.icon"/>
-          <span v-if="item.meta&&item.meta.title" slot="title">{{generateTitle(item.meta.title)}}</span>
-        </template>
+    <el-submenu v-else :index="item.name||item.path">
+      <template slot="title">
+        <item v-if="item.meta" :icon="item.meta.icon" :title="generateTitle(item.meta.title)" />
+      </template>
 
-        <template v-for="child in item.children" v-if="!child.hidden">
-          <sidebar-item :is-nest="true" class="nest-menu" v-if="child.children&&child.children.length>0" :item="child" :key="child.path" :base-path="resolvePath(child.path)"></sidebar-item>
+      <template v-for="child in item.children" v-if="!child.hidden">
+        <sidebar-item
+          v-if="child.children && child.children.length>0"
+          :is-nest="true"
+          :item="child"
+          :key="child.path"
+          :base-path="resolvePath(child.path)"
+          class="nest-menu" />
 
-          <router-link v-else :to="resolvePath(child.path)" :key="child.name">
-            <el-menu-item :index="resolvePath(child.path)">
-              <icon v-if="child.meta&&child.meta.icon" :type="child.meta.icon"/>
-              <span v-if="child.meta&&child.meta.title" slot="title">{{generateTitle(child.meta.title)}}</span>
-            </el-menu-item>
-          </router-link>
-        </template>
-      </el-submenu>
+        <a v-else :href="child.path" :key="child.name" target="_blank" @click="clickLink(child.path,$event)">
+          <el-menu-item :index="resolvePath(child.path)">
+            <item v-if="child.meta" :icon="child.meta.icon" :title="generateTitle(child.meta.title)" />
+          </el-menu-item>
+        </a>
+      </template>
+    </el-submenu>
 
   </div>
 </template>
@@ -32,9 +37,12 @@
 <script>
 import path from 'path'
 import { generateTitle } from 'utils/i18n'
+import { validateURL } from 'utils/validate'
+import Item from './Item'
 
 export default {
   name: 'SidebarItem',
+  components: { Item },
   props: {
     // route object
     item: {
@@ -56,23 +64,42 @@ export default {
     }
   },
   methods: {
-    hasOneShowingChild (children) {
+    hasOneShowingChild (children, parent) {
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false
         } else {
-          // temp set(will be used if only has one showing child )
+          // Temp set(will be used if only has one showing child)
           this.onlyOneChild = item
           return true
         }
       })
+
+      // When there is only one child router, the child router is displayed by default
       if (showingChildren.length === 1) {
         return true
       }
+
+      // Show parent if there are no child router to display
+      if (showingChildren.length === 0) {
+        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
+        return true
+      }
+
       return false
     },
-    resolvePath (...paths) {
-      return path.resolve(this.basePath, ...paths)
+    resolvePath (routePath) {
+      return path.resolve(this.basePath, routePath)
+    },
+    isExternalLink (routePath) {
+      return validateURL(routePath)
+    },
+    clickLink (routePath, e) {
+      if (!this.isExternalLink(routePath)) {
+        e.preventDefault()
+        const path = this.resolvePath(routePath)
+        this.$router.push(path)
+      }
     },
     generateTitle
   }

@@ -1,6 +1,7 @@
 export default {
   route: {
-    home: 'Home'
+    home: 'Home',
+    example: 'Example'
   },
   navbar: {
     logOut: 'Log Out',
@@ -19,6 +20,12 @@ export default {
     validatePassword: 'The password can not be less than 6 digits'
   },
   tabs: {
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All'
+  },
+  tagsView: {
+    refresh: 'Refresh',
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
