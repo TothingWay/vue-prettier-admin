@@ -10,11 +10,12 @@ import './mock' // simulation data
 import 'icons' // icon
 import './permission'
 
+import permission from '@/directive/permission/index.js' // 权限判断指令
 import Scroll from '@/components/Scroll/scroll'
 import Container from '@/components/container'
 Vue.component('scroll', Scroll)
 Vue.component('container', Container)
-
+Vue.directive('permission', permission)
 Vue.config.productionTip = false
 ElementLocale.i18n((key, value) => i18n.t(key, value))
 
