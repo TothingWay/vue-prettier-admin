@@ -56,7 +56,7 @@ export default {
     },
     click: {
       type: Boolean,
-      default: true
+      default: false
     },
     listenScroll: {
       type: Boolean,
