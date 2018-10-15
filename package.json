@@ -29,6 +29,7 @@
     "@vue/eslint-config-standard": "^3.0.4",
     "babel-plugin-component": "^1.1.1",
     "node-sass": "^4.9.0",
+    "path-to-regexp": "^2.4.0",
     "sass-loader": "^7.0.1",
     "svg-sprite-loader": "^4.1.1",
     "svgo": "^1.1.1",

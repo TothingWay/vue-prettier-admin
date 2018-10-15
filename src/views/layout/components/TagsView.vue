@@ -2,10 +2,10 @@
   <div class="tags-view-container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link
-        v-for="tag in Array.from(visitedViews)"
+        v-for="tag in visitedViews"
         ref="tag"
         :class="isActive(tag)?'active':''"
-        :to="tag"
+        :to="tag.fullPath"
         :key="tag.path"
         class="tags-view-item"
         @contextmenu.prevent.native="openMenu(tag,$event)">
@@ -60,24 +60,18 @@ export default {
   },
   methods: {
     generateTitle, // generateTitle by vue-i18n
-    generateRoute () {
-      if (this.$route.name) {
-        return this.$route
-      }
-      return false
-    },
     isActive (route) {
       return route.path === this.$route.path
     },
     addViewTags () {
-      const route = this.generateRoute()
-      if (!route) {
-        return false
+      const { name } = this.$route
+      if (name) {
+        this.$store.dispatch('addView', this.$route)
       }
-      this.$store.dispatch('addView', route)
       this.$nextTick(() => {
         this.$refs.scrollPane.$children[0].update()
       })
+      return false
     },
     moveToCurrentTag () {
       const tags = this.$refs.tag

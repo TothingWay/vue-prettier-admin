@@ -11,6 +11,7 @@
 
 <script>
 import { generateTitle } from 'utils/i18n'
+import pathToRegexp from 'path-to-regexp'
 
 export default {
   created () {
@@ -29,7 +30,14 @@ export default {
   methods: {
     generateTitle,
     getBreadcrumb () {
-      let matched = this.$route.matched.filter(item => item.name)
+      const { params } = this.$route
+      let matched = this.$route.matched.filter(item => {
+        if (item.name) {
+          var toPath = pathToRegexp.compile(item.path)
+          item.path = toPath(params)
+          return true
+        }
+      })
       const first = matched[0]
       if (first && first.name !== 'home') {
         matched = [{ path: '/home', meta: { title: 'home' } }].concat(matched)
