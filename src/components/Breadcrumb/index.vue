@@ -3,7 +3,7 @@
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item,index)  in levelList" :key="item.path" v-if='item.meta.title'>
         <span v-if='item.redirect==="noredirect"||index==levelList.length-1' class="no-redirect">{{generateTitle(item.meta.title)}}</span>
-        <router-link v-else :to="item.redirect||item.path">{{generateTitle(item.meta.title)}}</router-link>
+        <a v-else @click.prevent="handleLink(item)">{{ generateTitle(item.meta.title) }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -28,21 +28,31 @@ export default {
     }
   },
   methods: {
-    generateTitle,
     getBreadcrumb () {
-      const { params } = this.$route
       let matched = this.$route.matched.filter(item => {
         if (item.name) {
-          var toPath = pathToRegexp.compile(item.path)
-          item.path = toPath(params)
           return true
         }
       })
       const first = matched[0]
       if (first && first.name !== 'home') {
-        matched = [{ path: '/home', meta: { title: 'home' } }].concat(matched)
+        matched = [{ path: '/home', meta: { title: '首页' } }].concat(matched)
       }
       this.levelList = matched
+    },
+    pathCompile (path) {
+      // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
+      const { params } = this.$route
+      var toPath = pathToRegexp.compile(path)
+      return toPath(params)
+    },
+    handleLink (item) {
+      const { redirect, path } = item
+      if (redirect) {
+        this.$router.push(redirect)
+        return
+      }
+      this.$router.push(this.pathCompile(path))
     }
   }
 }
