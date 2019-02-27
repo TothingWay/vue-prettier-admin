@@ -28,6 +28,7 @@ export default {
     }
   },
   methods: {
+    generateTitle,
     getBreadcrumb () {
       let matched = this.$route.matched.filter(item => {
         if (item.name) {

@@ -4,7 +4,7 @@ function resolve (dir) {
 }
 module.exports = {
   // 项目部署的基础路径
-  baseUrl: process.env.NODE_ENV === 'production' ? '/admin' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/admin' : '/',
 
   // 生产环境构建文件名
   outputDir: 'admin',
