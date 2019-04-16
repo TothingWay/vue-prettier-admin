@@ -1,4 +1,4 @@
-# vue-admin
+# vue-admin-template
 
 ## Project setup
 ```
@@ -15,7 +15,15 @@ npm run serve
 npm run build
 ```
 
-### Optimization of SVG
+### Run your tests
 ```
-npm run svgo
+npm run test
 ```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
