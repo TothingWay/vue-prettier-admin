@@ -1,0 +1,95 @@
+@import './variables.scss';
+@import './sidebar.scss';
+@import './element-ui.scss';
+@import './transition.scss';
+
+body {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: #2c3e50;
+  overflow: hidden;
+}
+
+* {
+  outline: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both
+  }
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 25px;
+  transform:translate(0,0);
+  min-height: calc(100vh - 50px);
+  background: #fff;
+}
+
+.hasTagsView {
+  .container {
+    min-height: calc(100vh - 85px);
+  }
+}
+
+// colors
+.green {
+  color: #67C23A;
+}
+.orange {
+  color: #F5A623;
+}
+.red {
+  color: #f56c6c;
+}
+.blue {
+  color: #1989FA;
+}
+
+// 账单流水表格添加 + - 符合
+.bill-table {
+  .green {
+    span {
+      &:before {
+        content: '+';
+        display: inline-block;
+        width: 13px;
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+  .orange {
+    span {
+      &:before {
+        content: '-';
+        display: inline-block;
+        width: 13px;
+        position: relative;
+        top: -1px;
+      }
+    }
+    
+  }
+}

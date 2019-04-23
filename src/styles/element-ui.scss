@@ -1,0 +1,83 @@
+/* 覆盖 element-ui 样式 */
+
+
+// el-dropdown
+.el-dropdown-menu {
+  padding: 5px 0;
+}
+
+.el-popper[x-placement^=bottom] {
+  margin-top: 5px;
+}
+
+// el-dialog
+.el-dialog {
+  max-width: 400px;
+}
+
+.el-dialog__body {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .el-dialog {
+    width: calc(100% - 20px) !important;
+  }
+}
+
+// el-message-box
+.el-message-box {
+  vertical-align: top;
+  margin-top: 15vh;
+  max-width: 420px;
+  width: calc(100% - 20px);
+}
+
+// el-form
+.el-form {
+  .el-input {
+    width: 200px;
+  }
+}
+
+.dialogFrom {
+  .el-input {
+    width: 100%;
+  }
+  .el-select {
+    width: 100%;
+  }
+}
+// el-table
+.el-table__column-filter-trigger {
+  line-height: 1.15;
+  height: 18px;
+}
+.el-table {
+  .caret-wrapper {
+    height: 18px;
+    line-height: 1.15;
+  }
+  .sort-caret.ascending {
+    top: -3px;
+  }
+  .sort-caret.descending {
+    bottom: -1px;
+  }
+}
+
+// el-date-range-picker
+@media(max-width: 513px) {
+  .el-date-range-picker {
+  max-width: 100%;
+    .el-picker-panel__body {
+      width: 513px;
+      min-width: auto;
+      max-width: 100%;
+    }
+  }
+  .el-date-range-picker__content {
+    width: 100%;
+  }
+}
