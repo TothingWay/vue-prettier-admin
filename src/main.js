@@ -1,21 +1,15 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import './index.css'
+import antd from 'ant-design-vue'
+import router from "./router";
+import store from "./store";
+import 'ant-design-vue/dist/antd.css'
+
 import 'normalize.css/normalize.css'
-import '@/styles/index.scss' // global css
-import './icons'
-import './mock'
-import './permission'
 
-Vue.config.productionTip = false
-
-Vue.use(ElementUI)
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(antd)
+  .mount('#app')
