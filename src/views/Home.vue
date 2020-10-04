@@ -1,13 +1,13 @@
 <template>
   <div class="home">
-    <Icon type="icon-xiai"></Icon>
+    <Icon type="icon-xiai" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home",
-};
+  name: 'Home'
+}
 </script>
 
 <style lang="scss">
