@@ -1,14 +1,18 @@
 <template>
   <div class="home">
-    home
+    <Icon type="icon-xiai"></Icon>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Home",
-  components: {
-  }
 };
 </script>
+
+<style lang="scss">
+  .home {
+    color: #007fff;
+    font-size: 40px;
+  }
+</style>
