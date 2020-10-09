@@ -2,16 +2,32 @@
   <div :class="classObj" class="app-wrapper">
     <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
+    <div class="main-container">
+      <a-layout>
+        <Navbar/>
+        <a-layout-content :style="{ margin: '24px 16px 0' }">
+          <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+            content
+          </div>
+        </a-layout-content>
+        <a-layout-footer style="textAlign: center">
+          Ant Design ©2018 Created by Ant UED
+        </a-layout-footer>
+      </a-layout>
+    </div>
   </div>
 </template>
 
 <script>
-import { Sidebar } from './components'
+import { Sidebar, Navbar } from './components'
 import { mapState } from 'vuex'
+import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
+  mixins: [ResizeMixin],
   components: {
-    Sidebar
+    Sidebar,
+    Navbar
   },
   data() {
     return {
@@ -40,12 +56,113 @@ export default {
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+      this.$store.dispatch('app/closeSideBar')
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../styles/variables.scss";
 
+.app-wrapper {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  &.mobile.openSidebar {
+    position: fixed;
+    top: 0;
+  }
+}
+
+.main-container {
+  min-height: 100%;
+  transition: margin-left .28s;
+  margin-left: $sideBarWidth;
+  position: relative;
+  .ant-layout {
+    height: 100vh;
+  }
+}
+
+.sidebar-container {
+  transition: width 0.28s;
+  width: $sideBarWidth !important;
+  height: 100%;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.hideSidebar {
+  .sidebar-container {
+    width: 54px !important;
+  }
+  .main-container {
+    margin-left: 54px;
+  }
+}
+
+.mobile {
+  .main-container {
+    margin-left: 0px;
+  }
+
+  .sidebar-container {
+    transition: transform .28s;
+    width: $sideBarWidth !important;
+  }
+
+  &.hideSidebar {
+    .sidebar-container {
+      pointer-events: none;
+      transition-duration: 0.3s;
+      transform: translate3d(-$sideBarWidth, 0, 0);
+    }
+  }
+}
+
+.withoutAnimation {
+  .main-container,
+  .sidebar-container {
+    transition: none;
+  }
+}
+
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
+}
+
+.hideSidebar .fixed-header {
+  width: calc(100% - 54px)
+}
+
+.mobile .fixed-header {
+  width: 100%;
+}
 </style>
