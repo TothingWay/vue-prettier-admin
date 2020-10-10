@@ -1,26 +1,34 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
-    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div class="main-container">
-      <a-layout>
-        <Navbar/>
-        <a-layout-content :style="{ margin: '24px 16px 0' }">
-          <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-            content
-          </div>
-        </a-layout-content>
-        <a-layout-footer style="textAlign: center">
-          Ant Design ©2018 Created by Ant UED
-        </a-layout-footer>
-      </a-layout>
-    </div>
+<div :class="classObj" class="app-wrapper">
+  <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+  <!-- <a-menu
+    class="sidebar-container"
+    theme="dark"
+    mode="inline"
+  >
+    <VabMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path"/>
+  </a-menu> -->
+  <Sidebar class="sidebar-container"/>
+  <div class="main-container">
+    <a-layout>
+      <Navbar />
+      <a-layout-content :style="{ margin: '24px 16px 0' }">
+        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+          content
+        </div>
+      </a-layout-content>
+      <a-layout-footer style="textAlign: center">
+        Ant Design ©2018 Created by Ant UED
+      </a-layout-footer>
+    </a-layout>
   </div>
+</div>
 </template>
 
 <script>
 import { Sidebar, Navbar } from './components'
 import { mapState } from 'vuex'
+import { constantRoutes } from '/@/router'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -31,7 +39,7 @@ export default {
   },
   data() {
     return {
-
+      constantRoutes
     }
   },
   computed: {
@@ -69,6 +77,7 @@ export default {
   position: relative;
   height: 100vh;
   width: 100%;
+
   &:after {
     content: "";
     display: table;
@@ -86,6 +95,7 @@ export default {
   transition: margin-left .28s;
   margin-left: $sideBarWidth;
   position: relative;
+
   .ant-layout {
     height: 100vh;
   }
@@ -102,12 +112,17 @@ export default {
   left: 0;
   z-index: 1001;
   overflow: hidden;
+
+  .anticon {
+    margin-right: 16px;
+  }
 }
 
 .hideSidebar {
   .sidebar-container {
     width: 54px !important;
   }
+
   .main-container {
     margin-left: 54px;
   }
@@ -133,6 +148,7 @@ export default {
 }
 
 .withoutAnimation {
+
   .main-container,
   .sidebar-container {
     transition: none;

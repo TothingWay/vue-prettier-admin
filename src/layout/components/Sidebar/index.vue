@@ -1,33 +1,30 @@
 <template>
 <div :class="{'has-logo':showLogo}">
-  <logo v-if="showLogo" :collapse="isCollapse" />
+  <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
   <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
-  <a-menu theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" :inline-collapsed="isCollapse" :selected-keys="activeMenu">
-    <sidebar-item v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
+  <a-menu theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="activeMenu">
+    <SidebarMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
   </a-menu>
   <!-- </el-scrollbar> -->
 </div>
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
-import Logo from './Logo.vue'
-import SidebarItem from './SidebarItem.vue'
-import {
-  constantRoutes
-} from '/@/router'
+import { mapGetters } from 'vuex'
+// import Logo from './Logo.vue'
+import { constantRoutes } from '/@/router'
 // import variables from '/@/styles/variables.scss'
-
+import SidebarMenu from './SidebarMenu.vue'
 export default {
+  name: 'Sidebar',
   components: {
-    SidebarItem,
-    Logo
+    SidebarMenu
+    // Logo
   },
   data() {
     return {
-      constantRoutes
+      constantRoutes,
+      activeMenu: []
     }
   },
   computed: {
@@ -35,18 +32,23 @@ export default {
       'permission_routes',
       'sidebar'
     ]),
-    activeMenu() {
-      const route = this.$route
-      const {
-        meta,
-        path
-      } = route
-      // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return [meta.activeMenu]
+    /* activeMenu: {
+      get() {
+        const route = this.$route
+        const {
+          meta,
+          path
+        } = route
+        // if set path, the sidebar will highlight the path you set
+        if (meta.activeMenu) {
+          return [meta.activeMenu]
+        }
+        return [path]
+      },
+      set(val) {
+        return val
       }
-      return [path]
-    },
+    }, */
     showLogo() {
       return this.$store.state.settings.sidebarLogo
     },
@@ -56,9 +58,6 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
-  },
-  mounted() {
-    console.log(constantRoutes)
   }
 }
 </script>

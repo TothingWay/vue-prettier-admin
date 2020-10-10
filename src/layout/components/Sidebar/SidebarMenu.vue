@@ -1,49 +1,34 @@
 <template>
-  <div v-if="!item.hidden">
-    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <a-menu-item :key="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
-        </a-menu-item>
-      </app-link>
-    </template>
-
-    <a-sub-menu v-else ref="subMenu" :key="resolvePath(item.path)">
-      <template #title>
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
-      </template>
-      <sidebar-item
+  <component
+    :is="menuComponent"
+    v-if="!item.hidden"
+    :item="item"
+    :path="resolvePath(onlyOneChild.path)"
+  >
+    <template v-if="item.children && item.children.length">
+      <SidebarMenu
         v-for="child in item.children"
         :key="child.path"
-        :is-nest="true"
         :item="child"
         :base-path="resolvePath(child.path)"
-        class="nest-menu"
       />
-    </a-sub-menu>
-  </div>
+    </template>
+  </component>
 </template>
 
 <script>
 import path from 'path'
 import { isExternal } from '/@/utils/validate'
-import Item from './Item.vue'
-import AppLink from './Link.vue'
-import FixiOSBug from './FixiOSBug'
+import MenuItem from './components/MenuItem.vue'
+import Submenu from './components/Submenu.vue'
 
 export default {
-  name: 'SidebarItem',
-  components: { Item, AppLink },
-  mixins: [FixiOSBug],
+  name: 'SidebarMenu',
+  components: { MenuItem, Submenu },
   props: {
-    // route object
     item: {
       type: Object,
       required: true
-    },
-    isNest: {
-      type: Boolean,
-      default: false
     },
     basePath: {
       type: String,
@@ -52,7 +37,17 @@ export default {
   },
   data() {
     this.onlyOneChild = null
-    return {}
+    return {
+      routeChildren: {},
+      menuComponent: ''
+    }
+  },
+  created() {
+    if (this.hasOneShowingChild(this.item.children, this.item) && (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren) && !this.item.alwaysShow) {
+      this.menuComponent = 'MenuItem'
+    } else {
+      this.menuComponent = 'Submenu'
+    }
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
@@ -61,7 +56,12 @@ export default {
           return false
         } else {
           // Temp set(will be used if only has one showing child)
-          this.onlyOneChild = item
+          if (item.children) {
+            this.onlyOneChild = item
+          } else {
+            this.onlyOneChild = { ...item, children: [] }
+          }
+
           return true
         }
       })
@@ -73,7 +73,7 @@ export default {
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        this.onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
         return true
       }
 
@@ -91,3 +91,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .anticon {
+    margin-right: 3px !important;
+  }
+</style>

@@ -33,13 +33,40 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    meta: { title: 'test', icon: 'icon-xiai' },
     children: [
       {
         path: 'dashboard',
         component: () => import('/@/views/Home.vue'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'icon-xiai' }
+      },
+      {
+        path: 'home',
+        component: () => import('/@/views/Home.vue'),
+        name: 'Home',
+        meta: { title: 'Home', icon: 'icon-xiai' }
+      }
+    ]
+  },
+  {
+    path: '/about',
+    component: Layout,
+    meta: { title: 'test2', icon: 'icon-xiai' },
+    children: [
+      {
+        path: 'about1',
+        component: () => import('/@/views/Home.vue'),
+        name: 'About',
+        meta: { title: 'about', icon: 'icon-xiai' },
+        children: [
+          {
+            path: 'about3',
+            component: () => import('/@/views/Home.vue'),
+            name: 'About3',
+            meta: { title: 'about3', icon: 'icon-xiai' }
+          }
+        ]
       }
     ]
   }
