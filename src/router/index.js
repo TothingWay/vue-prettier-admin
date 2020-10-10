@@ -36,16 +36,29 @@ export const constantRoutes = [
     meta: { title: 'test', icon: 'icon-xiai' },
     children: [
       {
-        path: 'dashboard',
+        path: '/dashboard',
         component: () => import('/@/views/Home.vue'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'icon-xiai' }
       },
       {
-        path: 'home',
+        path: '/home',
         component: () => import('/@/views/Home.vue'),
         name: 'Home',
         meta: { title: 'Home', icon: 'icon-xiai' }
+      }
+    ]
+  },
+  {
+    path: '/test',
+    component: Layout,
+    meta: { title: 'test', icon: 'icon-xiai' },
+    children: [
+      {
+        path: '/test1',
+        component: () => import('/@/views/Home.vue'),
+        name: 'test1',
+        meta: { title: 'test1', icon: 'icon-xiai' }
       }
     ]
   },
@@ -55,16 +68,25 @@ export const constantRoutes = [
     meta: { title: 'test2', icon: 'icon-xiai' },
     children: [
       {
-        path: 'about1',
+        path: '/about1',
         component: () => import('/@/views/Home.vue'),
         name: 'About',
         meta: { title: 'about', icon: 'icon-xiai' },
         children: [
           {
-            path: 'about3',
+            path: '/about3',
             component: () => import('/@/views/Home.vue'),
             name: 'About3',
-            meta: { title: 'about3', icon: 'icon-xiai' }
+            meta: { title: 'about3', icon: 'icon-xiai' },
+            children: [
+              {
+                path: '/about34',
+                component: () => import('/@/views/Home.vue'),
+                name: 'About34',
+                meta: { title: 'about34', icon: 'icon-xiai' },
+                children: []
+              }
+            ]
           }
         ]
       }

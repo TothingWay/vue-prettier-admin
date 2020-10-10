@@ -56,12 +56,7 @@ export default {
           return false
         } else {
           // Temp set(will be used if only has one showing child)
-          if (item.children) {
-            this.onlyOneChild = item
-          } else {
-            this.onlyOneChild = { ...item, children: [] }
-          }
-
+          this.onlyOneChild = item
           return true
         }
       })
@@ -92,7 +87,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .anticon {
-    margin-right: 3px !important;
-  }
+.anticon {
+  margin-right: 16px;
+}
 </style>

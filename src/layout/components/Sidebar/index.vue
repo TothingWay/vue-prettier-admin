@@ -2,7 +2,7 @@
 <div :class="{'has-logo':showLogo}">
   <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
   <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
-  <a-menu theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="activeMenu">
+  <a-menu theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
     <SidebarMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
   </a-menu>
   <!-- </el-scrollbar> -->
@@ -24,7 +24,22 @@ export default {
   data() {
     return {
       constantRoutes,
-      activeMenu: []
+      selectedKeys: [],
+      openKeys: []
+    }
+  },
+  watch: {
+    $route: {
+      handler(route) {
+        const keys = route.matched.map(item => {
+          return item.path
+        })
+        console.log(keys)
+
+        this.selectedKeys = this.openKeys = keys
+        // this.openKeys = keys
+      },
+      immediate: true
     }
   },
   computed: {

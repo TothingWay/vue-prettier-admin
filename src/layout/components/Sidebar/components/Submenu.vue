@@ -1,8 +1,8 @@
 <template>
   <a-sub-menu :key="item.path">
-    <template v-slot:title>
-      <Icon v-if="item.meta.icon" :type="item.meta.icon" />
-      <span>{{ item.meta.title }}</span>
+    <template #title>
+      <Icon v-if="item.meta && item.meta.icon" :type="item.meta.icon" />
+      <span>{{ item.meta && item.meta.title }}</span>
     </template>
     <slot></slot>
   </a-sub-menu>
@@ -18,13 +18,7 @@ export default {
         return null
       }
     },
-    routeChildren: {
-      type: Object,
-      default() {
-        return null
-      }
-    },
-    basePath: {
+    path: {
       type: String,
       default: ''
     }

@@ -1,7 +1,7 @@
 <template>
   <a-menu-item :key="path" @click="handleLink">
-    <Icon v-if="item.meta.icon" :type="item.meta.icon" />
-    <span>{{ item.meta.title }}</span>
+    <Icon v-if="item.meta && item.meta.icon" :type="item.meta.icon" />
+    <span>{{ item.meta && item.meta.title }}</span>
   </a-menu-item>
 </template>
 
@@ -27,7 +27,6 @@ export default {
       if (isExternal(this.path)) {
         window.open(this.routePath)
       } else {
-        console.log(this.path)
         this.$router.push(this.path)
       }
     }
