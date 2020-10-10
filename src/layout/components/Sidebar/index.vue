@@ -34,10 +34,21 @@ export default {
         const keys = route.matched.map(item => {
           return item.path
         })
-        console.log(keys)
 
         this.selectedKeys = this.openKeys = keys
-        // this.openKeys = keys
+      },
+      immediate: true
+    },
+    'sidebar.opened': {
+      handler(val) {
+        if (val) {
+          const keys = this.$route.matched.map(item => {
+            return item.path
+          })
+          this.openKeys = keys
+        } else {
+          this.openKeys = []
+        }
       },
       immediate: true
     }
@@ -47,23 +58,6 @@ export default {
       'permission_routes',
       'sidebar'
     ]),
-    /* activeMenu: {
-      get() {
-        const route = this.$route
-        const {
-          meta,
-          path
-        } = route
-        // if set path, the sidebar will highlight the path you set
-        if (meta.activeMenu) {
-          return [meta.activeMenu]
-        }
-        return [path]
-      },
-      set(val) {
-        return val
-      }
-    }, */
     showLogo() {
       return this.$store.state.settings.sidebarLogo
     },
