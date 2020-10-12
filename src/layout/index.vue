@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../styles/variables.scss";
 
 .app-wrapper {
@@ -106,11 +106,7 @@ export default {
   z-index: 1001;
   overflow: hidden;
 
-  .anticon {
-    margin-right: 16px;
-  }
-
-  .sidebar-menu {
+  :deep(.sidebar-menu) {
     height: 100vh;
   }
 
@@ -137,7 +133,7 @@ export default {
 }
 
 .hideSidebar {
-  .sidebar-container {
+  :deep(.sidebar-container) {
     width: 54px !important;
     .ant-menu-submenu-title, .ant-menu-item {
       text-overflow: unset;
@@ -153,7 +149,7 @@ export default {
     }
   }
 
-  .main-container {
+  :deep(.main-container) {
     margin-left: 54px;
   }
 }
