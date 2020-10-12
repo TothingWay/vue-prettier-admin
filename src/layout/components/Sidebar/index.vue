@@ -1,11 +1,11 @@
 <template>
 <div :class="{'has-logo':showLogo}">
   <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
-  <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
-  <a-menu theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
-    <SidebarMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
-  </a-menu>
-  <!-- </el-scrollbar> -->
+  <Scroll wrap-class="scrollbar-wrapper">
+    <a-menu class="sidebar-menu" theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
+      <SidebarMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
+    </a-menu>
+  </Scroll>
 </div>
 </template>
 
@@ -15,10 +15,12 @@ import { mapGetters } from 'vuex'
 import { constantRoutes } from '/@/router'
 // import variables from '/@/styles/variables.scss'
 import SidebarMenu from './SidebarMenu.vue'
+import Scroll from '/@/components/Scroll'
 export default {
   name: 'Sidebar',
   components: {
-    SidebarMenu
+    SidebarMenu,
+    Scroll
     // Logo
   },
   data() {

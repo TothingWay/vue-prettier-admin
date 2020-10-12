@@ -2,7 +2,7 @@
   <a-sub-menu :key="item.path">
     <template #title>
       <Icon v-if="item.meta && item.meta.icon" :type="item.meta.icon" />
-      <span>{{ item.meta && item.meta.title }}</span>
+      <span class="menu-title">{{ item.meta && item.meta.title }}</span>
     </template>
     <slot></slot>
   </a-sub-menu>

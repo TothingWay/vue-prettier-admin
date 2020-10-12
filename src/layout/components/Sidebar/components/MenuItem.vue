@@ -1,7 +1,7 @@
 <template>
   <a-menu-item :key="path" @click="handleLink">
     <Icon v-if="item.meta && item.meta.icon" :type="item.meta.icon" />
-    <span>{{ item.meta && item.meta.title }}</span>
+    <span class="menu-title">{{ item.meta && item.meta.title }}</span>
   </a-menu-item>
 </template>
 

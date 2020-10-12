@@ -1,13 +1,6 @@
 <template>
 <div :class="classObj" class="app-wrapper">
   <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-  <!-- <a-menu
-    class="sidebar-container"
-    theme="dark"
-    mode="inline"
-  >
-    <VabMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path"/>
-  </a-menu> -->
   <Sidebar class="sidebar-container"/>
   <div class="main-container">
     <a-layout>
@@ -116,11 +109,48 @@ export default {
   .anticon {
     margin-right: 16px;
   }
+
+  .sidebar-menu {
+    height: 100vh;
+  }
+
+  .scrollbar-wrapper {
+    overflow-x: hidden !important;
+  }
+
+  .el-scrollbar__bar.is-vertical {
+    right: 0px;
+  }
+
+  .el-scrollbar {
+    height: 100%;
+  }
+
+  &.has-logo {
+    .el-scrollbar {
+      height: calc(100% - 50px);
+    }
+    .sidebar-menu {
+      height: calc(100vh - 50px);
+    }
+  }
 }
 
 .hideSidebar {
   .sidebar-container {
     width: 54px !important;
+    .ant-menu-submenu-title, .ant-menu-item {
+      text-overflow: unset;
+    }
+    .menu-title {
+      display: none;
+    }
+    .ant-menu-submenu-arrow {
+      display: none;
+    }
+    .anticon {
+      margin-left: 4px;
+    }
   }
 
   .main-container {
