@@ -6,6 +6,8 @@ import store from './store'
 import 'ant-design-vue/dist/antd.css'
 import 'normalize.css/normalize.css'
 import Icon from '/@/components/Icon/index.vue'
+// scrollbar style
+import './styles/scrollbar.scss'
 
 createApp(App)
   .use(store)
