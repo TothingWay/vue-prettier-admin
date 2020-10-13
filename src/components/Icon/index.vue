@@ -5,7 +5,7 @@
 <script>
 import { createFromIconfontCN } from '@ant-design/icons-vue'
 const SvgIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_1755020_ecxcxu2bte.js' // 在 iconfont.cn 上生成
+  scriptUrl: '//at.alicdn.com/t/font_1755020_8opp7hlleen.js' // 在 iconfont.cn 上生成
 })
 
 export default {
