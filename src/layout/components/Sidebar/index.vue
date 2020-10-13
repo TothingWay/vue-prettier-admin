@@ -3,7 +3,7 @@
   <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
   <Scroll wrap-class="scrollbar-wrapper">
     <a-menu class="sidebar-menu" theme="dark" :mode="isCollapse ? 'vertical' : 'inline'" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
-      <SidebarMenu v-for="route in constantRoutes" :key="route.path" :item="route" :base-path="route.path" />
+      <SidebarMenu v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
     </a-menu>
   </Scroll>
 </div>
@@ -12,7 +12,6 @@
 <script>
 import { mapGetters } from 'vuex'
 // import Logo from './Logo.vue'
-import { constantRoutes } from '/@/router'
 // import variables from '/@/styles/variables.scss'
 import SidebarMenu from './SidebarMenu.vue'
 import Scroll from '/@/components/Scroll'
@@ -25,7 +24,6 @@ export default {
   },
   data() {
     return {
-      constantRoutes,
       selectedKeys: [],
       openKeys: []
     }
@@ -57,7 +55,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'permission_routes',
+      'routes',
       'sidebar'
     ]),
     showLogo() {

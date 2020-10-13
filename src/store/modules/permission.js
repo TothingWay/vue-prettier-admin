@@ -1,37 +1,67 @@
-import { asyncRoutes, constantRoutes } from '/@/router'
+import { constantRoutes } from '/@/router'
+import { deepClone } from '/@/utils'
+import path from 'path'
+import Layout from '/@/layout/index.vue'
+
+let filterAsyncRoutesTimes = 0
 
 /**
- * Use meta.role to determine if the current user has permission
- * @param roles
- * @param route
+ * format menu interface
+ * @param filterRoutes
+ * @param asyncRoutes
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return true
-  }
+export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
+  asyncRoutes.forEach(item => {
+    const menu = {
+      path: item.path,
+      component: filterAsyncRoutesTimes === 0 ? Layout : item.path ? () => import(`/@/views${item.path}`) : () => import(`/@/layout/components/Empty`),
+      children: [],
+      name: item.path.replace(/\//g, ''),
+      meta: {
+        title: item.meta.title,
+        icon: item.meta.icon
+      }
+    }
+    filterAsyncRoutesTimes += 1
+    if (item.children && item.children.length) {
+      filterAsyncRoutes(menu.children, item.children)
+    }
+    filterRoutes.push(menu)
+    return asyncRoutes
+  })
 }
 
-/**
- * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes
- * @param roles
- */
-export function filterAsyncRoutes(routes, roles) {
-  const res = []
-
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-      }
-      res.push(tmp)
+// The degraded route is a secondary route to solve the keep-alive caching problem
+export const getFlatRoutes = (routes) => {
+  const routers = routes.map((child) => {
+    if (child.children && child.children.length > 0) {
+      child.children = formatRouter(child.children, child.path, [], child)
     }
+    return child
   })
+  routers.forEach(item => {
+    item.component = Layout
+  })
+  return routers
+}
 
-  return res
+const formatRouter = (routes, basePath = '/', list = [], parent) => {
+  routes.map(item => {
+    item.path = path.resolve(basePath, item.path)
+    const meta = item.meta || {}
+    if (!meta.parent && parent) {
+      meta.parent = parent.path
+      item.meta = meta
+    }
+    if (item.redirect) item.redirect = path.resolve(basePath, item.redirect)
+    if (item.children && item.children.length > 0) {
+      const arr = formatRouter(item.children, item.path, list, item)
+      delete item.children
+      list.concat(arr)
+    }
+    list.push(item)
+  })
+  return list
 }
 
 const state = {
@@ -47,16 +77,14 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes({ commit }, asyncRoutes) {
     return new Promise(resolve => {
-      let accessedRoutes
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      }
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
+      const Routes = []
+      filterAsyncRoutes(Routes, asyncRoutes)
+      const flatRoutes = getFlatRoutes(deepClone(Routes))
+
+      commit('SET_ROUTES', Routes)
+      resolve(flatRoutes.concat({ path: '/:path(.*)*', redirect: '/home', hidden: true }))
     })
   }
 }

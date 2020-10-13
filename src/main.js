@@ -9,6 +9,8 @@ import Icon from '/@/components/Icon/index.vue'
 // scrollbar style
 import './styles/scrollbar.scss'
 
+import './permission' // permission control
+
 createApp(App)
   .use(store)
   .use(router)
