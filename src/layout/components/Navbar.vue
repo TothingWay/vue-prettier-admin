@@ -15,7 +15,7 @@
               <a target="_blank" href="https://github.com/TothingWay/vue-prettier-admin"><GithubOutlined class="dropdown-icon"/>项目地址</a>
             </a-menu-item>
             <a-menu-divider />
-            <a-menu-item>
+            <a-menu-item @click="logout">
               <a href="javascript:;"><LogoutOutlined class="dropdown-icon"/>退出登录</a>
             </a-menu-item>
           </a-menu>
@@ -42,7 +42,6 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar',
       'device'
     ])
   },
@@ -57,6 +56,10 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }
