@@ -1,6 +1,6 @@
 
 export default {
-  title: 'Vue Element Admin',
+  title: 'Vue Prettier Admin',
 
   /**
    * @type {boolean} true | false
