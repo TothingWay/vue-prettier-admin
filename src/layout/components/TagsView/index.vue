@@ -3,7 +3,7 @@
     <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
         v-for="tag in visitedViews"
-        ref="tag"
+        :ref="(tag)=>tagRefs.push(tag)"
         :key="tag.path"
         :class="isActive(tag)?'active':''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
@@ -13,7 +13,7 @@
         @contextmenu.prevent="openMenu(tag,$event)"
       >
         {{ tag.title }}
-        <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+        <CloseOutlined v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)"/>
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
@@ -28,16 +28,17 @@
 <script>
 import ScrollPane from './ScrollPane.vue'
 import path from 'path'
-
+import { CloseOutlined } from '@ant-design/icons-vue'
 export default {
-  components: { ScrollPane },
+  components: { ScrollPane, CloseOutlined },
   data() {
     return {
       visible: false,
       top: 0,
       left: 0,
       selectedTag: {},
-      affixTags: []
+      affixTags: [],
+      tagRefs: []
     }
   },
   computed: {
@@ -60,6 +61,9 @@ export default {
         document.body.removeEventListener('click', this.closeMenu)
       }
     }
+  },
+  beforeUnmount() {
+    this.tagRefs = []
   },
   mounted() {
     this.initTags()
@@ -110,9 +114,8 @@ export default {
       return false
     },
     moveToCurrentTag() {
-      const tags = this.$refs.tag
       this.$nextTick(() => {
-        for (const tag of tags) {
+        for (const tag of this.tagRefs) {
           if (tag.to.path === this.$route.path) {
             this.$refs.scrollPane.moveToTarget(tag)
             // when query is different then update
@@ -208,6 +211,7 @@ export default {
     .tags-view-item {
       display: inline-block;
       position: relative;
+      user-select: none;
       cursor: pointer;
       height: 26px;
       line-height: 26px;
@@ -225,9 +229,9 @@ export default {
         margin-right: 15px;
       }
       &.active {
-        background-color: #42b983;
+        background-color: #409EFF;
         color: #fff;
-        border-color: #42b983;
+        border-color: #409EFF;
         &::before {
           content: '';
           background: #fff;
@@ -266,13 +270,15 @@ export default {
 </style>
 
 <style lang="scss">
-//reset element css of el-icon-close
+//reset antd css of anticon-close
 .tags-view-wrapper {
   .tags-view-item {
-    .el-icon-close {
+    .anticon-close {
       width: 16px;
       height: 16px;
-      vertical-align: 2px;
+      margin-right: 3px;
+      font-size: 10px;
+      line-height: 17px;
       border-radius: 50%;
       text-align: center;
       transition: all .3s cubic-bezier(.645, .045, .355, 1);
@@ -280,7 +286,7 @@ export default {
       &:before {
         transform: scale(.6);
         display: inline-block;
-        vertical-align: -3px;
+        /* vertical-align: -3px; */
       }
       &:hover {
         background-color: #b4bccc;

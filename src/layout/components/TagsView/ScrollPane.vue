@@ -1,14 +1,18 @@
 <template>
-  <el-scrollbar ref="scrollContainer" :vertical="false" class="scroll-container" @wheel.prevent="handleScroll">
+  <Scroll ref="scrollContainer" :vertical="false" class="scroll-container" @wheel.prevent="handleScroll">
     <slot />
-  </el-scrollbar>
+  </Scroll>
 </template>
 
 <script>
+import Scroll from '/@/components/Scroll'
 const tagAndTagSpacing = 4 // tagAndTagSpacing
 
 export default {
   name: 'ScrollPane',
+  components: {
+    Scroll
+  },
   data() {
     return {
       left: 0
@@ -16,7 +20,7 @@ export default {
   },
   computed: {
     scrollWrapper() {
-      return this.$refs.scrollContainer.$refs.wrap
+      return this.$refs.scrollContainer.$el.firstElementChild
     }
   },
   mounted() {
@@ -38,7 +42,7 @@ export default {
       const $container = this.$refs.scrollContainer.$el
       const $containerWidth = $container.offsetWidth
       const $scrollWrapper = this.scrollWrapper
-      const tagList = this.$parent.$refs.tag
+      const tagList = this.$parent.tagRefs
 
       let firstTag = null
       let lastTag = null

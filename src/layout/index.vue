@@ -4,7 +4,10 @@
   <Sidebar class="sidebar-container"/>
   <div class="main-container">
     <a-layout>
-      <Navbar />
+      <div :class="{'fixed-header':fixedHeader}">
+        <Navbar />
+        <TagsView v-if="needTagsView" />
+      </div>
       <a-layout-content>
         <AppMain/>
       </a-layout-content>
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import { Sidebar, Navbar, AppMain } from './components'
+import { Sidebar, Navbar, AppMain, TagsView } from './components'
 import { mapState } from 'vuex'
 import { constantRoutes } from '/@/router'
 import ResizeMixin from './mixin/ResizeHandler'
@@ -25,7 +28,8 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    AppMain
+    AppMain,
+    TagsView
   },
   data() {
     return {

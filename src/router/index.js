@@ -34,13 +34,25 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/home',
+    name: 'Home',
     hidden: true,
     children: [
       {
         path: '/home',
         component: () => import('/@/views/Home.vue'),
-        name: 'Home',
-        meta: { title: 'Home' }
+        name: 'HomeIndex',
+        meta: { title: 'Home', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('/@/views/redirect/index.vue')
       }
     ]
   },
