@@ -22,10 +22,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  mounted() {
-    console.log(this.item)
-  },
-  methods: {}
+  }
 }
 </script>

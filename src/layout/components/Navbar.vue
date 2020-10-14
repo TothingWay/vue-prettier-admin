@@ -3,6 +3,7 @@
     <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggle-click="toggleSideBar" />
 
     <div class="right-menu-item">
+      <MenuSearch />
       <a-dropdown :trigger="['hover', 'hover']" placement="bottomRight">
         <a class="ant-dropdown-link" @click="e => e.preventDefault()"> Admin <DownOutlined style="margin-right: 0;"/> </a>
         <template #overlay>
@@ -27,6 +28,7 @@
 
 <script>
 import Hamburger from '/@/components/Hamburger/index.vue'
+import MenuSearch from '/@/components/MenuSearch/index.vue'
 import { DownOutlined, GithubOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
@@ -34,6 +36,7 @@ export default {
   name: 'Navbar',
   components: {
     Hamburger,
+    MenuSearch,
     DownOutlined,
     GithubOutlined,
     HomeOutlined,
@@ -97,6 +100,8 @@ export default {
 }
 
 .right-menu-item {
+  display: flex;
   padding-right: 16px;
+  align-items: center;
 }
 </style>

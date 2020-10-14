@@ -1,17 +1,19 @@
 <template>
-  <div :class="{'show':show}" class="menu-search">
-    <Icon type="icon-search" class="search-icon" @click.stop="click"></Icon>
+  <div class="menu-search">
+    <SearchOutlined />
     <a-select
       ref="menuSearchSelect"
+      class="menu-search-select"
       show-search
       v-model:value="search"
-      placeholder="Search"
+      placeholder="Search Menu"
       default-active-first-option
       :show-arrow="false"
       :filter-option="false"
       :not-found-content="null"
       @search="querySearch"
       @change="change"
+      size="default"
     >
       <a-select-option v-for="item in options" :key="item.path" :value="item">
         {{ item.title.join(' > ')}}
@@ -25,21 +27,24 @@
 // make search results more in line with expectations
 import Fuse from 'fuse.js'
 import path from 'path'
+import { SearchOutlined } from '@ant-design/icons-vue'
 
 export default {
   name: 'MenuSearch',
+  components: {
+    SearchOutlined
+  },
   data() {
     return {
-      search: '',
+      search: undefined,
       options: [],
       searchPool: [],
-      show: false,
       fuse: undefined
     }
   },
   computed: {
     routes() {
-      return this.$store.getters.permission_routes
+      return this.$store.getters.routes
     }
   },
   watch: {
@@ -48,37 +53,16 @@ export default {
     },
     searchPool(list) {
       this.initFuse(list)
-    },
-    show(value) {
-      if (value) {
-        document.body.addEventListener('click', this.close)
-      } else {
-        document.body.removeEventListener('click', this.close)
-      }
     }
   },
   mounted() {
     this.searchPool = this.generateRoutes(this.routes)
   },
   methods: {
-    click() {
-      this.show = !this.show
-      if (this.show) {
-        this.$refs.menuSearchSelect && this.$refs.menuSearchSelect.focus()
-      }
-    },
-    close() {
-      this.$refs.menuSearchSelect && this.$refs.menuSearchSelect.blur()
-      this.options = []
-      this.show = false
-    },
     change(val) {
       this.$router.push(val.path)
-      this.search = ''
+      this.search = undefined
       this.options = []
-      this.$nextTick(() => {
-        this.show = false
-      })
     },
     initFuse(list) {
       this.fuse = new Fuse(list, {
@@ -113,11 +97,13 @@ export default {
 
         if (router.meta && router.meta.title) {
           data.title = [...data.title, router.meta.title]
-
           if (router.redirect !== 'noRedirect') {
             // only push the routes with title
             // special case: need to exclude parent router without redirect
-            res.push(data)
+            if (router.component.name !== 'Layout') {
+              // except Layout menu
+              res.push(data)
+            }
           }
         }
 
@@ -132,8 +118,10 @@ export default {
       return res
     },
     querySearch(query) {
-      if (query !== '') {
-        this.options = this.fuse.search(query)
+      if (query !== undefined) {
+        this.options = this.fuse.search(query).map(item => {
+          return item.item
+        })
       } else {
         this.options = []
       }
@@ -143,26 +131,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.anticon-search {
+  margin-right: 5px;
+  font-size: 18px;
+  vertical-align: middle;
+}
 .menu-search {
-  font-size: 0 !important;
-
-  .search-icon {
-    cursor: pointer;
-    font-size: 18px;
-    vertical-align: middle;
-  }
-
+  margin-right: 16px;
   .menu-search-select {
-    font-size: 18px;
-    transition: width 0.2s;
-    width: 0;
+    font-size: 14px;
+    width: 210px;
     overflow: hidden;
     background: transparent;
     border-radius: 0;
     display: inline-block;
     vertical-align: middle;
 
-    ::v-deep .el-input__inner {
+    :deep(.ant-select-selection) {
       border-radius: 0;
       border: 0;
       padding-left: 0;
@@ -171,33 +156,13 @@ export default {
       border-bottom: 1px solid #d9d9d9;
       vertical-align: middle;
     }
-  }
-
-  &.show {
-    .menu-search-select {
-      width: 210px;
-      margin-left: 10px;
+    :deep(.ant-select-selection__rendered) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    :deep(.ant-select-selection__placeholder) {
+      padding-left: 3px;
     }
   }
 }
-</style>
-
-<script>
-export default {
-  data() {
-    return {
-
-    }
-  },
-  mounted() {
-
-  },
-  methods: {
-
-  }
-}
-</script>
-
-<style lang="scss" scoped>
-
 </style>

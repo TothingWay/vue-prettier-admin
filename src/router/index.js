@@ -60,8 +60,7 @@ export const asyncRoutes = []
 const router = createRouter({
   history: createWebHashHistory(),
   scrollBehavior: () => ({ top: 0 }),
-  routes: constantRoutes,
-  end: false // to resolve warning: No match found for location with path /xxx/xx, detail see https://github.com/vuejs/vue-next/issues/2356
+  routes: constantRoutes
 })
 
 export function resetRouter() {
