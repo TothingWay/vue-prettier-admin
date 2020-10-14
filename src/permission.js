@@ -22,7 +22,6 @@ router.beforeEach(async(to, from, next) => {
 
   if (hasToken) {
     if (to.path === '/login') {
-      console.log(hasToken)
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
