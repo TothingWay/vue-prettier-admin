@@ -56,6 +56,9 @@ export default {
           return false
         } else {
           // Temp set(will be used if only has one showing child)
+          if (item.children && !item.children.length) {
+            delete item.children
+          }
           this.onlyOneChild = item
           return true
         }

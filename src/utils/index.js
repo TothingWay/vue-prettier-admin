@@ -46,3 +46,11 @@ export function deepClone(target) {
   }
   return result
 }
+
+// 路由path转驼峰
+export function pathToHump(path) {
+  return path.replace(/\/(\w)/g, function(all, letter) {
+    return letter.toUpperCase()
+  })
+}
+

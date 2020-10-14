@@ -51,7 +51,6 @@ export default {
     }
   },
   mounted() {
-
   },
   methods: {
     toggleSideBar() {

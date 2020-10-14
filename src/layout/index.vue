@@ -6,9 +6,7 @@
     <a-layout>
       <Navbar />
       <a-layout-content :style="{ margin: '24px 16px 0' }">
-        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          content
-        </div>
+        <AppMain/>
       </a-layout-content>
       <a-layout-footer style="textAlign: center">
         Ant Design ©2018 Created by Ant UED
@@ -19,7 +17,7 @@
 </template>
 
 <script>
-import { Sidebar, Navbar } from './components'
+import { Sidebar, Navbar, AppMain } from './components'
 import { mapState } from 'vuex'
 import { constantRoutes } from '/@/router'
 import ResizeMixin from './mixin/ResizeHandler'
@@ -28,7 +26,8 @@ export default {
   mixins: [ResizeMixin],
   components: {
     Sidebar,
-    Navbar
+    Navbar,
+    AppMain
   },
   data() {
     return {
