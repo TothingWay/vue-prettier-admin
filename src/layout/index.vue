@@ -20,6 +20,7 @@ import { constantRoutes } from '/@/router'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
+  name: 'Layout',
   mixins: [ResizeMixin],
   components: {
     Sidebar,
