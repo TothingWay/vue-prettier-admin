@@ -27,6 +27,9 @@ export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
     if (item.children && item.children.length) {
       filterAsyncRoutes(menu.children, item.children)
     }
+    if (!menu.children.length) {
+      delete menu.children
+    }
     filterRoutes.push(menu)
     return asyncRoutes
   })

@@ -1,7 +1,7 @@
 <template>
   <a-menu-item :key="path" @click="handleLink">
-    <Icon v-if="item.meta && item.meta.icon" :type="item.meta.icon" />
-    <span class="menu-title">{{ item.meta && item.meta.title }}</span>
+    <Icon v-if="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :type="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" />
+    <span class="menu-title">{{ onlyOneChild.meta && onlyOneChild.meta.title }}</span>
   </a-menu-item>
 </template>
 
@@ -20,6 +20,12 @@ export default {
     path: {
       type: String,
       default: ''
+    },
+    onlyOneChild: {
+      type: Object,
+      default() {
+        return null
+      }
     }
   },
   methods: {

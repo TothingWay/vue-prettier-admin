@@ -3,6 +3,7 @@
     :is="menuComponent"
     v-if="!item.hidden"
     :item="item"
+    :only-one-child="onlyOneChild"
     :path="resolvePath(onlyOneChild.path)"
   >
     <template v-if="item.children && item.children.length">
@@ -56,9 +57,9 @@ export default {
           return false
         } else {
           // Temp set(will be used if only has one showing child)
-          if (item.children && !item.children.length) {
+          /* if (item.children && !item.children.length) {
             delete item.children
-          }
+          } */
           this.onlyOneChild = item
           return true
         }

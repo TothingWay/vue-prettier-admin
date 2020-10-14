@@ -23,6 +23,9 @@ export default {
       default: ''
     }
   },
+  mounted() {
+    console.log(this.item)
+  },
   methods: {}
 }
 </script>
