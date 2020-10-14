@@ -5,12 +5,9 @@
   <div class="main-container">
     <a-layout>
       <Navbar />
-      <a-layout-content :style="{ margin: '24px 16px 0' }">
+      <a-layout-content>
         <AppMain/>
       </a-layout-content>
-      <a-layout-footer style="textAlign: center">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
     </a-layout>
   </div>
 </div>
