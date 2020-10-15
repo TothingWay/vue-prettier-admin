@@ -34,13 +34,12 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/home',
-    name: 'Home',
     hidden: true,
     children: [
       {
         path: '/home',
         component: () => import('/@/views/Home.vue'),
-        name: 'HomeIndex',
+        name: 'Home',
         meta: { title: 'Home', affix: true }
       }
     ]

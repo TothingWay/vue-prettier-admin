@@ -1,6 +1,9 @@
 <template>
   <a-layout-header>
-    <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggle-click="toggleSideBar" />
+    <div class="right-menu-item">
+      <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggle-click="toggleSideBar" />
+      <Breadcrumb class="breadcrumb-container" />
+    </div>
 
     <div class="right-menu-item">
       <MenuSearch />
@@ -29,6 +32,7 @@
 <script>
 import Hamburger from '/@/components/Hamburger/index.vue'
 import MenuSearch from '/@/components/MenuSearch/index.vue'
+import Breadcrumb from '/@/components/Breadcrumb/index.vue'
 import { DownOutlined, GithubOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
@@ -37,6 +41,7 @@ export default {
   components: {
     Hamburger,
     MenuSearch,
+    Breadcrumb,
     DownOutlined,
     GithubOutlined,
     HomeOutlined,
@@ -103,5 +108,9 @@ export default {
   display: flex;
   padding-right: 16px;
   align-items: center;
+}
+
+.breadcrumb-container {
+  margin-left: 5px;
 }
 </style>

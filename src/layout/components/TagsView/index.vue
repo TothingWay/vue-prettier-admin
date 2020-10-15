@@ -240,7 +240,7 @@ export default {
           height: 8px;
           border-radius: 50%;
           position: relative;
-          margin-right: 2px;
+          margin-right: 3px;
         }
       }
     }
@@ -281,7 +281,7 @@ export default {
       line-height: 17px;
       border-radius: 50%;
       text-align: center;
-      transition: all .3s cubic-bezier(.645, .045, .355, 1);
+      transition: background-color, border-color .3s cubic-bezier(.645, .045, .355, 1);
       transform-origin: 100% 50%;
       &:before {
         transform: scale(.6);

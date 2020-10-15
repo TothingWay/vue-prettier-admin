@@ -2,7 +2,7 @@
 <div :class="classObj" class="app-wrapper">
   <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
   <Sidebar class="sidebar-container"/>
-  <div class="main-container">
+  <div :class="{hasTagsView: needTagsView}" class="main-container">
     <a-layout>
       <div :class="{'fixed-header':fixedHeader}">
         <Navbar />
