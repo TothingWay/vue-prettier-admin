@@ -1,28 +1,33 @@
 <template>
-  <a-form layout="inline" :model="loginForm" @submit.prevent>
-    <a-form-item>
-      <a-input v-model:value="loginForm.username" placeholder="Username">
-        <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-input v-model:value="loginForm.password" type="password" placeholder="Password">
-        <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-button
-        type="primary"
-        @click="handleLogin"
-      >
-        Log in
-      </a-button>
-    </a-form-item>
-  </a-form>
+  <div class="login-container">
+    <div class="form-wrapper">
+      <a-form layout="inline" :model="loginForm" @submit.prevent>
+        <a-form-item>
+          <a-input v-model:value="loginForm.username" placeholder="Username">
+            <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-input v-model:value="loginForm.password" type="password" placeholder="Password">
+            <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-button
+            type="primary"
+            @click="handleLogin"
+          >
+            Log in
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </div>
+  </div>
 </template>
 
 <script>
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { setupCanvas, resizeCanvas } from '/@/utils/canvas-bg'
 
 export default {
   name: 'Login',
@@ -64,18 +69,18 @@ export default {
       immediate: true
     }
   },
-  created() {
-    // window.addEventListener('storage', this.afterQRScan)
-  },
   mounted() {
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
+    setupCanvas()
+    window.addEventListener('resize', resizeCanvas)
   },
   beforeUnmount() {
-    // window.removeEventListener('storage', this.afterQRScan)
+    console.log(1)
+    window.removeEventListener('resize', resizeCanvas)
   },
   methods: {
     checkCapslock(e) {
@@ -144,5 +149,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.login-container {
+  display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: calc(100vh - 13rem);
+	position: relative;
+	justify-content: flex-start;
+  align-items: center;
+  .form-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: -5.5vw 0 0 0;
+    z-index: 100;
+    line-height: 1;
+  }
+}
 </style>
