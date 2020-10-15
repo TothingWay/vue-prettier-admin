@@ -2,7 +2,7 @@ import { constantRoutes } from '/@/router'
 import { deepClone } from '/@/utils'
 import path from 'path'
 import Layout from '/@/layout/index.vue'
-import { pathToHump } from '/@/utils'
+import { pathToHump, parseDynamicPath } from '/@/utils'
 
 let filterAsyncRoutesTimes = 0
 
@@ -15,9 +15,9 @@ export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
   asyncRoutes.forEach(item => {
     const menu = {
       path: item.path,
-      component: filterAsyncRoutesTimes === 0 ? Layout : item.path ? () => import(`/@/views${item.path}.vue`) : () => import(`/@/layout/components/Empty.vue`),
+      component: filterAsyncRoutesTimes === 0 ? Layout : item.path ? () => import(`/@/views${parseDynamicPath(item.path)}.vue`) : () => import(`/@/layout/components/Empty.vue`),
       children: [],
-      name: pathToHump(item.path),
+      name: pathToHump(parseDynamicPath(item.path)),
       meta: {
         title: item.title,
         icon: item.icon
