@@ -8,6 +8,8 @@ import 'normalize.css/normalize.css'
 import Icon from '/@/components/Icon/index.vue'
 // scrollbar style
 import './styles/scrollbar.scss'
+// transition style
+import './styles/transition.scss'
 
 import './permission' // permission control
 
