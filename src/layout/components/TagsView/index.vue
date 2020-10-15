@@ -116,7 +116,7 @@ export default {
     moveToCurrentTag() {
       this.$nextTick(() => {
         for (const tag of this.tagRefs) {
-          if (tag.to.path === this.$route.path) {
+          if (tag && tag.to.path === this.$route.path) {
             this.$refs.scrollPane.moveToTarget(tag)
             // when query is different then update
             if (tag.to.fullPath !== this.$route.fullPath) {
