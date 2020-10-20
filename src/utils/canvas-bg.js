@@ -19,7 +19,8 @@ const baseSize = 2
 const rangeSize = 10
 const baseHue = 210
 const rangeHue = 30
-const backgroundColor = 'hsla(60,50%,3%,1)'
+const backgroundColor = 'hsla(207,100%,8%,1)'
+// const backgroundColor = 'hsla(60,50%,3%,1)'
 
 // canvas
 let container

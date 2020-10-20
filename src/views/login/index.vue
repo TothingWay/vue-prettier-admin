@@ -1,20 +1,23 @@
 <template>
   <div class="login-container">
     <div class="form-wrapper">
-      <a-form layout="inline" :model="loginForm" @submit.prevent>
+      <div class="login-title">Vue Prettier Admin</div>
+      <a-form :model="loginForm" @submit.prevent>
         <a-form-item>
-          <a-input v-model:value="loginForm.username" placeholder="Username">
-            <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+          <a-input size="large" v-model:value="loginForm.username" placeholder="Username">
+            <template v-slot:prefix><UserOutlined/></template>
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-input v-model:value="loginForm.password" type="password" placeholder="Password">
-            <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
+          <a-input size="large" v-model:value="loginForm.password" type="password" placeholder="Password">
+            <template v-slot:prefix><LockOutlined/></template>
           </a-input>
         </a-form-item>
-        <a-form-item>
+        <a-form-item style="margin-bottom: 0;">
           <a-button
+            style="width: 100%;"
             type="primary"
+            size="large"
             @click="handleLogin"
           >
             Log in
@@ -163,9 +166,41 @@ export default {
     left: 0;
     width: 100%;
     text-align: center;
-    margin: -5.5vw 0 0 0;
+    margin: -6vw 0 0 0;
     z-index: 100;
     line-height: 1;
+  }
+
+  .login-title {
+    color: #eee;
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .ant-form {
+    width: 500px;
+    /* background:rgba(11, 44, 72, 0.88); */
+    max-width: 100%;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    :deep(.ant-form-item-control) {
+      line-height: 50px;
+      .anticon {
+        color: #69c0ff;
+      }
+
+    }
+    :deep(.ant-input) {
+      /* border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgb(0 23 41);
+      caret-color: #fff;
+      color: #fff; */
+      height: 50px;
+    }
   }
 }
 </style>
