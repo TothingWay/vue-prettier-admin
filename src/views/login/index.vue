@@ -2,22 +2,32 @@
   <div class="login-container">
     <div class="form-wrapper">
       <div class="login-title">Vue Prettier Admin</div>
-      <a-form :model="loginForm" @submit.prevent>
-        <a-form-item>
-          <a-input size="large" v-model:value="loginForm.username" placeholder="Username">
-            <template v-slot:prefix><UserOutlined/></template>
+      <a-form ref="loginForm" :model="loginForm" autocomplete="on" :rules="loginRules" @submit.prevent>
+        <a-form-item name="username">
+          <a-input size="large" ref="username" v-model:value="loginForm.username" placeholder="Username" autocomplete="on">
+            <template #prefix><UserOutlined/></template>
           </a-input>
         </a-form-item>
-        <a-form-item>
-          <a-input size="large" v-model:value="loginForm.password" type="password" placeholder="Password">
-            <template v-slot:prefix><LockOutlined/></template>
-          </a-input>
-        </a-form-item>
+        <a-tooltip :visible="capsTooltip" :getPopupContainer="triggerNode => triggerNode.parentNode" overlayClassName="caps-tooltip" placement="right">
+          <template v-slot:title>
+            <span>Caps lock is On</span>
+          </template>
+          <a-form-item name="password">
+            <a-input size="large" ref="password" v-model:value="loginForm.password" @keyup="checkCapslock" :type="passwordType" placeholder="Password" autocomplete="on">
+              <template #prefix><LockOutlined/></template>
+              <template #suffix>
+                <EyeOutlined v-if="passwordType === 'password'" @click="showPwd"/>
+                <EyeInvisibleOutlined v-else @click="showPwd"/>
+              </template>
+            </a-input>
+          </a-form-item>
+        </a-tooltip>
         <a-form-item style="margin-bottom: 0;">
           <a-button
             style="width: 100%;"
             type="primary"
             size="large"
+            :loading="loading"
             @click="handleLogin"
           >
             Log in
@@ -29,18 +39,18 @@
 </template>
 
 <script>
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue'
 import { setupCanvas, resizeCanvas } from '/@/utils/canvas-bg'
 
 export default {
   name: 'Login',
-  components: { UserOutlined, LockOutlined },
+  components: { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined },
   data() {
-    const validatePassword = (rule, value, callback) => {
+    const validatePassword = async(rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        return Promise.reject('The password can not be less than 6 digits')
       } else {
-        callback()
+        return Promise.resolve()
       }
     }
     return {
@@ -49,13 +59,12 @@ export default {
         password: '111111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+        username: [{ required: true, trigger: 'blur', message: 'Please enter your user name' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',
       capsTooltip: false,
       loading: false,
-      showDialog: false,
       redirect: undefined,
       otherQuery: {}
     }
@@ -82,7 +91,6 @@ export default {
     window.addEventListener('resize', resizeCanvas)
   },
   beforeUnmount() {
-    console.log(1)
     window.removeEventListener('resize', resizeCanvas)
   },
   methods: {
@@ -101,25 +109,20 @@ export default {
       })
     },
     handleLogin() {
-      this.$store.dispatch('user/login', this.loginForm).then(() => {
-        this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+      this.$refs.loginForm.validate().then(() => {
+        this.loading = true
+        this.$store.dispatch('user/login', this.loginForm)
+          .then(() => {
+            this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
+          })
+      }).catch(() => {
+        console.log('error submit!!')
+        return false
       })
-      /* this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      }) */
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
@@ -129,24 +132,6 @@ export default {
         return acc
       }, {})
     }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
   }
 }
 </script>
@@ -169,6 +154,15 @@ export default {
     margin: -6vw 0 0 0;
     z-index: 100;
     line-height: 1;
+    :deep(.ant-form-explain) {
+      text-align: left;
+    }
+    :deep(.ant-input:not(:first-child)) {
+      padding-left: 40px;
+    }
+    .anticon-eye, .anticon-eye-invisible {
+      margin-right: 0;
+    }
   }
 
   .login-title {
@@ -179,10 +173,7 @@ export default {
 
   .ant-form {
     width: 500px;
-    /* background:rgba(11, 44, 72, 0.88); */
     max-width: 100%;
-    /* padding-left: 20px; */
-    /* padding-right: 20px; */
     padding: 30px;
     margin-left: auto;
     margin-right: auto;
@@ -191,16 +182,17 @@ export default {
       line-height: 50px;
       .anticon {
         color: #69c0ff;
+        font-size: 18px;
       }
 
     }
     :deep(.ant-input) {
-      /* border: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: rgb(0 23 41);
-      caret-color: #fff;
-      color: #fff; */
       height: 50px;
     }
   }
+}
+
+:deep(.caps-tooltip) {
+  top: 193px !important;
 }
 </style>
