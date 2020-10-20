@@ -145,6 +145,16 @@ export default {
 	position: relative;
 	justify-content: flex-start;
   align-items: center;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background: hsla(207,100%,8%,1);
+  }
   .form-wrapper {
     position: absolute;
     top: 50%;
