@@ -15,12 +15,13 @@
     "nprogress": "^0.2.0",
     "path": "^0.12.7",
     "path-to-regexp": "^6.2.0",
-    "vue": "^3.0.0",
+    "screenfull": "^5.0.2",
+    "vue": "^3.0.2",
     "vue-router": "^4.0.0-beta.13",
     "vuex": "^4.0.0-beta.4"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/compiler-sfc": "^3.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.10.0",
     "eslint-plugin-vue": "^7.0.0",

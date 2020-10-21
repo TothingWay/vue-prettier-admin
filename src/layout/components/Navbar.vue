@@ -1,12 +1,15 @@
 <template>
   <a-layout-header>
-    <div class="right-menu-item">
+    <div class="left-menu-item">
       <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggle-click="toggleSideBar" />
       <Breadcrumb class="breadcrumb-container" />
     </div>
 
     <div class="right-menu-item">
       <MenuSearch />
+
+      <Screenfull class="hover-effect"/>
+
       <a-dropdown :trigger="['hover', 'hover']" placement="bottomRight">
         <a class="ant-dropdown-link" @click="e => e.preventDefault()"> Admin <DownOutlined style="margin-right: 0;"/> </a>
         <template #overlay>
@@ -33,6 +36,7 @@
 import Hamburger from '/@/components/Hamburger/index.vue'
 import MenuSearch from '/@/components/MenuSearch/index.vue'
 import Breadcrumb from '/@/components/Breadcrumb/index.vue'
+import Screenfull from '/@/components/Screenfull/index.vue'
 import { DownOutlined, GithubOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
@@ -42,6 +46,7 @@ export default {
     Hamburger,
     MenuSearch,
     Breadcrumb,
+    Screenfull,
     DownOutlined,
     GithubOutlined,
     HomeOutlined,
@@ -104,7 +109,7 @@ export default {
   height: 30px;
 }
 
-.right-menu-item {
+.right-menu-item, .left-menu-item {
   display: flex;
   padding-right: 16px;
   align-items: center;
