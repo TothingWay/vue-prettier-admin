@@ -1,8 +1,9 @@
 <template>
-  <div class="menu-search">
-    <SearchOutlined />
+  <div :class="{'show':show}" class="menu-search">
+    <SearchOutlined @click.stop="click"/>
     <a-select
       ref="menuSearchSelect"
+      id="menu-search-select"
       class="menu-search-select"
       show-search
       v-model:value="search"
@@ -39,6 +40,7 @@ export default {
       search: undefined,
       options: [],
       searchPool: [],
+      show: false,
       fuse: undefined
     }
   },
@@ -53,16 +55,29 @@ export default {
     },
     searchPool(list) {
       this.initFuse(list)
+    },
+    show(value) {
+      if (value) {
+        document.body.addEventListener('click', this.close)
+      } else {
+        document.body.removeEventListener('click', this.close)
+      }
     }
   },
   mounted() {
     this.searchPool = this.generateRoutes(this.routes)
   },
   methods: {
+    click() {
+      this.show = !this.show
+    },
     change(val) {
       this.$router.push(val.path)
       this.search = undefined
       this.options = []
+      this.$nextTick(() => {
+        this.show = false
+      })
     },
     initFuse(list) {
       this.fuse = new Fuse(list, {
@@ -132,20 +147,21 @@ export default {
 
 <style lang="scss" scoped>
 .anticon-search {
-  margin-right: 5px;
+  margin-right: 0;
   font-size: 18px;
-  vertical-align: middle;
+  vertical-align: -4px;
 }
 .menu-search {
   margin-right: 16px;
   .menu-search-select {
     font-size: 14px;
-    width: 210px;
+    width: 0;
     overflow: hidden;
     background: transparent;
+    transition: width 0.2s;
     border-radius: 0;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: -9px;
 
     :deep(.ant-select-selection) {
       border-radius: 0;
@@ -162,6 +178,13 @@ export default {
     }
     :deep(.ant-select-selection__placeholder) {
       padding-left: 3px;
+    }
+  }
+
+  &.show {
+    .menu-search-select {
+      width: 210px;
+      margin-left: 10px;
     }
   }
 }
