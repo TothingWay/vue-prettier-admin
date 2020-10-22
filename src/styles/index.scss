@@ -2,7 +2,7 @@
   margin-right: 0;
 }
 
-// Reset the antd table style
+// Reset the antd Table style
 .ant-table-small > .ant-table-content > .ant-table-body {
   margin: 0;
 }
@@ -12,3 +12,41 @@
     background-color: #fafafa !important;
   }
 }
+
+// Reset the antd Tabs style
+.ant-tabs-card.ant-tabs {
+  border: 1px solid #e4e7ed;
+  .ant-tabs-nav-container {
+    background-color: #fafafa;
+    border-bottom: 1px solid #e4e7ed;
+    overflow: visible;
+  }
+  .ant-tabs-card-bar {
+    .ant-tabs-tab {
+      border: 0;
+      margin: 0;
+      border-radius: 0;
+      background: transparent;
+      border-bottom: 1px solid #e4e7ed;
+      border-left: 1px solid transparent;
+      border-right: 1px solid transparent;
+      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+      &:first-child {
+        &.ant-tabs-tab-active {
+          border-left: 1px solid transparent;
+        }
+      }
+    }
+    .ant-tabs-tab-active {
+      border: 0;
+      background: #fff;
+      border-left: 1px solid #e4e7ed;
+      border-right: 1px solid #e4e7ed;
+      border-bottom: 1px solid #fff;
+    }
+  }
+  .ant-tabs-card-content {
+    padding: 0 16px 16px;
+  }
+}
+// f0f0f0
