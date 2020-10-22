@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-main {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
@@ -36,7 +36,8 @@ export default {
 }
 
 .fixed-header+.app-main {
-  padding-top: 50px;
+  min-height: 100vh;
+  padding-top: 66px;
 }
 
 .hasTagsView {
@@ -46,7 +47,8 @@ export default {
   }
 
   .fixed-header+.app-main {
-    padding-top: 84px;
+    min-height: 100vh;
+    padding-top: 100px;
   }
 }
 </style>

@@ -43,13 +43,14 @@ export function deepClone(target) {
   return result
 }
 
-// 路由path转驼峰
+// The route path turned hump
 export function pathToHump(path) {
   return path.replace(/\/(\w)/g, function(all, letter) {
     return letter.toUpperCase()
   })
 }
 
+// Formatting dynamic routing
 export function parseDynamicPath(path) {
   if (path && typeof (path) === 'string') {
     return parse(path).map(item => {
@@ -57,4 +58,35 @@ export function parseDynamicPath(path) {
     }).join('')
   }
   return ''
+}
+
+/**
+ * Check if an element has a class
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ * @returns {boolean}
+ */
+export function hasClass(ele, cls) {
+  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+}
+
+/**
+ * Add class to element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function addClass(ele, cls) {
+  if (!hasClass(ele, cls)) ele.className += ' ' + cls
+}
+
+/**
+ * Remove class from element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function removeClass(ele, cls) {
+  if (hasClass(ele, cls)) {
+    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+    ele.className = ele.className.replace(reg, ' ')
+  }
 }

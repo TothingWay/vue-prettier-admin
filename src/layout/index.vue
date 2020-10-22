@@ -3,21 +3,24 @@
   <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
   <Sidebar class="sidebar-container"/>
   <div :class="{hasTagsView: needTagsView}" class="main-container">
-    <a-layout>
-      <div :class="{'fixed-header':fixedHeader}">
-        <Navbar />
-        <TagsView v-if="needTagsView" />
-      </div>
-      <a-layout-content>
-        <AppMain/>
-      </a-layout-content>
-    </a-layout>
+
+    <div :class="{'fixed-header':fixedHeader}">
+      <Navbar />
+      <TagsView v-if="needTagsView" />
+    </div>
+
+    <AppMain/>
+
+    <right-panel v-if="showSettings">
+      <Settings />
+    </right-panel>
   </div>
 </div>
 </template>
 
 <script>
-import { Sidebar, Navbar, AppMain, TagsView } from './components'
+import RightPanel from '/@/components/RightPanel/index.vue'
+import { Sidebar, Navbar, AppMain, TagsView, Settings } from './components'
 import { mapState } from 'vuex'
 import { constantRoutes } from '/@/router'
 import ResizeMixin from './mixin/ResizeHandler'
@@ -26,6 +29,8 @@ export default {
   name: 'Layout',
   mixins: [ResizeMixin],
   components: {
+    RightPanel,
+    Settings,
     Sidebar,
     Navbar,
     AppMain,

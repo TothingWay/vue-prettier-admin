@@ -52,5 +52,6 @@ export default {
 <style scoped>
 .anticon {
   font-size: 20px;
+  margin-right: 16px;
 }
 </style>
