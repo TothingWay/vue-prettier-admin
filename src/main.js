@@ -10,6 +10,8 @@ import Icon from '/@/components/Icon/index.vue'
 import './styles/scrollbar.scss'
 // transition style
 import './styles/transition.scss'
+// global style
+import './styles/index.scss'
 
 import './permission' // permission control
 
