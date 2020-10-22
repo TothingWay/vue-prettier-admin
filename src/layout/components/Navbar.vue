@@ -8,7 +8,9 @@
     <div class="right-menu-item">
       <MenuSearch />
 
-      <Screenfull class="hover-effect"/>
+      <ErrorLog />
+
+      <Screenfull />
 
       <a-dropdown :trigger="['hover', 'hover']" placement="bottomRight">
         <a class="ant-dropdown-link" @click="e => e.preventDefault()"> Admin <DownOutlined style="margin-right: 0;"/> </a>
@@ -37,6 +39,7 @@ import Hamburger from '/@/components/Hamburger/index.vue'
 import MenuSearch from '/@/components/MenuSearch/index.vue'
 import Breadcrumb from '/@/components/Breadcrumb/index.vue'
 import Screenfull from '/@/components/Screenfull/index.vue'
+import ErrorLog from '/@/components/ErrorLog/index.vue'
 import { DownOutlined, GithubOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
@@ -47,6 +50,7 @@ export default {
     MenuSearch,
     Breadcrumb,
     Screenfull,
+    ErrorLog,
     DownOutlined,
     GithubOutlined,
     HomeOutlined,

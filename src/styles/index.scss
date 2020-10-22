@@ -1,3 +1,14 @@
 .anticon {
   margin-right: 0;
 }
+
+// Reset the antd table style
+.ant-table-small > .ant-table-content > .ant-table-body {
+  margin: 0;
+}
+
+.ant-table-small {
+  .ant-table-thead tr th {
+    background-color: #fafafa !important;
+  }
+}

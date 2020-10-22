@@ -109,7 +109,7 @@ export default {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 999;
   overflow: hidden;
 
   :deep(.sidebar-menu) {
@@ -194,7 +194,7 @@ export default {
   top: 0;
   height: 100%;
   position: absolute;
-  z-index: 999;
+  z-index: 998;
 }
 
 .fixed-header {

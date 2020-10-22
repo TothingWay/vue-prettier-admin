@@ -5,7 +5,10 @@ import router from './router'
 import store from './store'
 import 'ant-design-vue/dist/antd.css'
 import 'normalize.css/normalize.css'
+// icon
 import Icon from '/@/components/Icon/index.vue'
+// error log
+import { initErrorLog } from './utils/error-log'
 // scrollbar style
 import './styles/scrollbar.scss'
 // transition style
@@ -15,9 +18,12 @@ import './styles/index.scss'
 
 import './permission' // permission control
 
-createApp(App)
+const vueApp = createApp(App)
   .use(store)
   .use(router)
   .use(antd)
   .component('Icon', Icon)
-  .mount('#app')
+
+initErrorLog(vueApp)
+
+vueApp.mount('#app')
