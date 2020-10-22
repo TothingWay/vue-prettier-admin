@@ -16,14 +16,6 @@ export default {
   components: {
     AntdIcon,
     IconFont
-  },
-  data() {
-    return {
-
-    }
-  },
-  methods: {
-
   }
 }
 </script>
