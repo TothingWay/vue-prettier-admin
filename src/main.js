@@ -15,8 +15,8 @@ import './styles/scrollbar.scss'
 import './styles/transition.scss'
 // global style
 import './styles/index.scss'
-
-import './permission' // permission control
+// permission control
+import './permission'
 
 const vueApp = createApp(App)
   .use(store)
@@ -27,3 +27,4 @@ const vueApp = createApp(App)
 initErrorLog(vueApp)
 
 vueApp.mount('#app')
+

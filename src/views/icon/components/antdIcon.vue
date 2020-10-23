@@ -11,8 +11,8 @@
     </a-radio-button>
   </a-radio-group>
   <a-card>
-    <a-card-grid v-for="item in antdIcons" :key="item" class="icon-grid">
-      <component :is="item"/>
+    <a-card-grid v-for="item in antdIcons" :key="item" class="icon-grid" @click="handleCopy(item,$event)">
+      <component :is="item" @click.prevent/>
     </a-card-grid>
   </a-card>
 </template>
@@ -20,6 +20,7 @@
 <script>
 import * as antdIcons from '@ant-design/icons-vue'
 const iconsList = Object.keys(antdIcons).map(iconName => antdIcons[iconName])
+import clip from '/@/utils/clipboard'
 export default {
   name: 'AntdIcon',
   components: {
@@ -41,7 +42,10 @@ export default {
     }
   },
   methods: {
-
+    handleCopy(text, event) {
+      const tagText = `<${text} />`
+      clip(tagText, event, `${tagText} copied`)
+    }
   }
 }
 </script>
@@ -51,6 +55,7 @@ export default {
   width: 10%;
   text-align: center;
   font-size: 32px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

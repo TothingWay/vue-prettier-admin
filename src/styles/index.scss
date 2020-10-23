@@ -49,4 +49,7 @@
     padding: 0 16px 16px;
   }
 }
-// f0f0f0
+// resolve clipboard with svg error, detail see https://github.com/zenorocha/clipboard.js/issues/519
+svg {
+  pointer-events: none;
+}

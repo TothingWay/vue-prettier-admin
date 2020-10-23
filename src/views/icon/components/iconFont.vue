@@ -1,6 +1,6 @@
 <template>
   <a-card>
-    <a-card-grid v-for="item in iconFonts" :key="item" class="icon-grid">
+    <a-card-grid v-for="item in iconFonts" :key="item" class="icon-grid" v-clipboard:copy="rewriteText(item)" v-clipboard:success="clipboardSuccess">
       <Icon :type="item" />
     </a-card-grid>
   </a-card>
@@ -8,8 +8,11 @@
 </template>
 
 <script>
-
+import clipboard from '/@/directive/clipboard'
 export default {
+  directives: {
+    clipboard
+  },
   data() {
     return {
       iconFonts: []
@@ -20,6 +23,14 @@ export default {
     this.iconFonts = iconFontList.map(item => {
       return item.id
     })
+  },
+  methods: {
+    rewriteText(text) {
+      return `<Icon type="${text}" />`
+    },
+    clipboardSuccess(event) {
+      this.$message.success(`${event.text} copied`)
+    }
   }
 }
 </script>
@@ -29,6 +40,7 @@ export default {
   width: 10%;
   text-align: center;
   font-size: 32px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
