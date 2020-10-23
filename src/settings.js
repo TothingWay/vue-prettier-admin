@@ -37,5 +37,5 @@ export default {
    * @type {string} //at.alicdn.com/t/font_1755020_xlas04eqv7g.js
    * @description detail see https://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.d8cf4382a&helptype=code.
    */
-  iconfontUrl: '//at.alicdn.com/t/font_1755020_xlas04eqv7g.js'
+  iconfontUrl: '//at.alicdn.com/t/font_1755020_4g9wftijc71.js'
 }
