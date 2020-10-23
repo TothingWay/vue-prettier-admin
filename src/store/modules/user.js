@@ -54,10 +54,11 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, introduction } = users[state.token]
+        const { name, introduction, roles } = users[state.token]
 
         commit('SET_NAME', name)
         commit('SET_INTRODUCTION', introduction)
+        commit('SET_ROLES', roles)
         resolve(users[state.token])
       }).catch(error => {
         reject(error)
@@ -70,6 +71,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit('SET_TOKEN', '')
       removeToken()
+      commit('permission/SET_ROUTES', [], { root: true })
       resetRouter()
       // reset visited views and cached views
       dispatch('tagsView/delAllViews', null, { root: true })
@@ -93,14 +95,17 @@ const actions = {
     commit('SET_TOKEN', token)
     setToken(token)
 
-    const { roles } = await dispatch('getInfo')
-
+    const { routers } = await dispatch('getInfo')
     resetRouter()
+    commit('permission/SET_ROUTES', [], { root: true })
 
-    // generate accessible routes map based on roles
-    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+    // generate accessible routes map
+    const accessRoutes = await dispatch('permission/generateRoutes', routers, { root: true })
+
     // dynamically add accessible routes
-    router.addRoutes(accessRoutes)
+    accessRoutes.forEach(route => {
+      router.addRoute(route)
+    })
 
     // reset visited views and cached views
     dispatch('tagsView/delAllViews', null, { root: true })

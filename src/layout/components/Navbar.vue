@@ -13,7 +13,7 @@
       <Screenfull />
 
       <a-dropdown :trigger="['hover', 'hover']" placement="bottomRight">
-        <a class="ant-dropdown-link" @click="e => e.preventDefault()"> Admin <DownOutlined style="margin-right: 0;"/> </a>
+        <a class="ant-dropdown-link" @click="e => e.preventDefault()"> {{name}} <DownOutlined style="margin-right: 0;"/> </a>
         <template #overlay>
           <a-menu>
             <a-menu-item>
@@ -59,7 +59,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'device'
+      'device',
+      'name'
     ])
   },
   data() {

@@ -1,6 +1,6 @@
 <template>
   <a-tabs type="card">
-    <a-tab-pane key="1" tab="Antd">
+    <a-tab-pane key="1" tab="Ant Design">
       <AntdIcon />
     </a-tab-pane>
     <a-tab-pane key="2" tab="IconFont">

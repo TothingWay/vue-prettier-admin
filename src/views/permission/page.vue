@@ -1,25 +1,16 @@
 <template>
-  <div>
-    page
-  </div>
+  <switch-roles @change="handleRolesChange" />
 </template>
 
 <script>
+import SwitchRoles from './components/SwitchRoles.vue'
 export default {
-  data() {
-    return {
-
-    }
-  },
-  mounted() {
-
-  },
+  name: 'PermissionPage',
+  components: { SwitchRoles },
   methods: {
-
+    handleRolesChange() {
+      this.$router.push({ path: '/home' })
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

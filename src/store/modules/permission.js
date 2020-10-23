@@ -18,9 +18,15 @@ export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
       component: filterAsyncRoutesTimes === 0 ? Layout : item.path ? () => import(`/@/views${parseDynamicPath(item.path)}.vue`) : () => import(`/@/layout/components/Empty.vue`),
       children: [],
       name: pathToHump(parseDynamicPath(item.path)),
+      alwaysShow: item.alwaysShow || false,
       meta: {
-        title: item.title,
-        icon: item.icon
+        title: item.title || null,
+        icon: item.icon || null,
+        roles: item.roles || [],
+        noCache: item.noCache || false,
+        breadcrumb: item.breadcrumb || false,
+        affix: item.affix || false,
+        activeMenu: item.activeMenu || null
       }
     }
     filterAsyncRoutesTimes += 1
@@ -88,6 +94,7 @@ const actions = {
       const flatRoutes = getFlatRoutes(deepClone(Routes))
 
       commit('SET_ROUTES', Routes)
+
       resolve(flatRoutes.concat({ path: '/:path(.*)*', redirect: '/home', hidden: true }))
     })
   }

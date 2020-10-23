@@ -32,7 +32,7 @@ export default {
     $route: {
       handler(route) {
         const keys = route.matched.map(item => {
-          return item.path
+          return item.meta.activeMenu || item.path
         })
 
         this.selectedKeys = this.openKeys = keys
