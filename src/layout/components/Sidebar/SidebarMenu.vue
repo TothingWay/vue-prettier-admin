@@ -19,7 +19,7 @@
 
 <script>
 import path from 'path'
-import { isExternal } from '/@/utils/validate'
+import { isExternal } from '@/utils/validate'
 import MenuItem from './components/MenuItem.vue'
 import Submenu from './components/Submenu.vue'
 
@@ -44,7 +44,11 @@ export default {
     }
   },
   created() {
-    if (this.hasOneShowingChild(this.item.children, this.item) && (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren) && !this.item.alwaysShow) {
+    if (
+      this.hasOneShowingChild(this.item.children, this.item) &&
+      (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren) &&
+      !this.item.alwaysShow
+    ) {
       this.menuComponent = 'MenuItem'
     } else {
       this.menuComponent = 'Submenu'

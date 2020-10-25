@@ -2,22 +2,50 @@
   <div class="login-container">
     <div class="form-wrapper">
       <div class="login-title">Vue Prettier Admin</div>
-      <a-form ref="loginForm" :model="loginForm" autocomplete="on" :rules="loginRules" @submit.prevent>
+      <a-form
+        ref="loginForm"
+        :model="loginForm"
+        autocomplete="on"
+        :rules="loginRules"
+        @submit.prevent
+      >
         <a-form-item name="username">
-          <a-input size="large" ref="username" v-model:value="loginForm.username" placeholder="Username" autocomplete="on">
-            <template #prefix><UserOutlined/></template>
+          <a-input
+            size="large"
+            ref="username"
+            v-model:value="loginForm.username"
+            placeholder="Username"
+            autocomplete="on"
+          >
+            <template #prefix><UserOutlined /></template>
           </a-input>
         </a-form-item>
-        <a-tooltip :visible="capsTooltip" :getPopupContainer="triggerNode => triggerNode.parentNode" overlayClassName="caps-tooltip" placement="right">
+        <a-tooltip
+          :visible="capsTooltip"
+          :getPopupContainer="triggerNode => triggerNode.parentNode"
+          overlayClassName="caps-tooltip"
+          placement="right"
+        >
           <template v-slot:title>
             <span>Caps lock is On</span>
           </template>
           <a-form-item name="password">
-            <a-input size="large" ref="password" v-model:value="loginForm.password" @keyup="checkCapslock" :type="passwordType" placeholder="Password" autocomplete="on">
-              <template #prefix><LockOutlined/></template>
+            <a-input
+              size="large"
+              ref="password"
+              v-model:value="loginForm.password"
+              @keyup="checkCapslock"
+              :type="passwordType"
+              placeholder="Password"
+              autocomplete="on"
+            >
+              <template #prefix><LockOutlined /></template>
               <template #suffix>
-                <EyeOutlined v-if="passwordType === 'password'" @click="showPwd"/>
-                <EyeInvisibleOutlined v-else @click="showPwd"/>
+                <EyeOutlined
+                  v-if="passwordType === 'password'"
+                  @click="showPwd"
+                />
+                <EyeInvisibleOutlined v-else @click="showPwd" />
               </template>
             </a-input>
           </a-form-item>
@@ -39,14 +67,19 @@
 </template>
 
 <script>
-import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue'
-import { setupCanvas, resizeCanvas } from '/@/utils/canvas-bg'
+import {
+  UserOutlined,
+  LockOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined
+} from '@ant-design/icons-vue'
+import { setupCanvas, resizeCanvas } from '@/utils/canvas-bg'
 
 export default {
   name: 'Login',
   components: { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined },
   data() {
-    const validatePassword = async(rule, value, callback) => {
+    const validatePassword = async (rule, value) => {
       if (value.length < 6) {
         return Promise.reject('The password can not be less than 6 digits')
       } else {
@@ -59,8 +92,16 @@ export default {
         password: '111111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: 'Please enter your user name' }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        username: [
+          {
+            required: true,
+            trigger: 'blur',
+            message: 'Please enter your user name'
+          }
+        ],
+        password: [
+          { required: true, trigger: 'blur', validator: validatePassword }
+        ]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -96,7 +137,7 @@ export default {
   methods: {
     checkCapslock(e) {
       const { key } = e
-      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
+      this.capsTooltip = key && key.length === 1 && key >= 'A' && key <= 'Z'
     },
     showPwd() {
       if (this.passwordType === 'password') {
@@ -109,20 +150,27 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate().then(() => {
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm)
-          .then(() => {
-            this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
-      }).catch(() => {
-        console.log('error submit!!')
-        return false
-      })
+      this.$refs.loginForm
+        .validate()
+        .then(() => {
+          this.loading = true
+          this.$store
+            .dispatch('user/login', this.loginForm)
+            .then(() => {
+              this.$router.push({
+                path: this.redirect || '/',
+                query: this.otherQuery
+              })
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
+        })
+        .catch(() => {
+          console.log('error submit!!')
+          return false
+        })
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
@@ -139,11 +187,11 @@ export default {
 <style lang="scss" scoped>
 .login-container {
   display: flex;
-	flex-direction: column;
-	width: 100vw;
-	height: calc(100vh - 13rem);
-	position: relative;
-	justify-content: flex-start;
+  flex-direction: column;
+  width: 100vw;
+  height: calc(100vh - 13rem);
+  position: relative;
+  justify-content: flex-start;
   align-items: center;
   &::before {
     content: '';
@@ -153,7 +201,7 @@ export default {
     display: block;
     width: 100%;
     height: 100vh;
-    background: hsla(207,100%,8%,1);
+    background: hsla(207, 100%, 8%, 1);
   }
   .form-wrapper {
     position: absolute;
@@ -170,7 +218,8 @@ export default {
     :deep(.ant-input:not(:first-child)) {
       padding-left: 40px;
     }
-    .anticon-eye, .anticon-eye-invisible {
+    .anticon-eye,
+    .anticon-eye-invisible {
       margin-right: 0;
     }
   }
@@ -194,7 +243,6 @@ export default {
         color: #69c0ff;
         font-size: 18px;
       }
-
     }
     :deep(.ant-input) {
       height: 50px;

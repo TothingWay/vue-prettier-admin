@@ -1,11 +1,14 @@
 <template>
-  <FullscreenExitOutlined v-if="isFullscreen" @click="click"/>
-  <FullscreenOutlined v-else @click="click"/>
+  <FullscreenExitOutlined v-if="isFullscreen" @click="click" />
+  <FullscreenOutlined v-else @click="click" />
 </template>
 
 <script>
 import screenfull from 'screenfull'
-import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
+import {
+  FullscreenExitOutlined,
+  FullscreenOutlined
+} from '@ant-design/icons-vue'
 
 export default {
   name: 'Screenfull',

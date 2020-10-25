@@ -1,8 +1,24 @@
 <template>
   <a-breadcrumb class="app-breadcrumb">
-    <a-breadcrumb-item v-bind="$attrs" v-for="(item,index) in levelList" :key="item.path">
-      <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
-      <a v-else :class="{'no-redirect': item.components && item.components.default.name === 'Layout'}" @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+    <a-breadcrumb-item
+      v-bind="$attrs"
+      v-for="(item, index) in levelList"
+      :key="item.path"
+    >
+      <span
+        v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+        class="no-redirect"
+        >{{ item.meta.title }}</span
+      >
+      <a
+        v-else
+        :class="{
+          'no-redirect':
+            item.components && item.components.default.name === 'Layout'
+        }"
+        @click.prevent="handleLink(item)"
+        >{{ item.meta.title }}</a
+      >
     </a-breadcrumb-item>
   </a-breadcrumb>
 </template>
@@ -34,14 +50,18 @@ export default {
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title
-      let matched = this.getBreadcrumbRoutes().filter(item => item.meta && item.meta.title)
+      let matched = this.getBreadcrumbRoutes().filter(
+        item => item.meta && item.meta.title
+      )
       const first = matched[0]
 
       if (!this.isHome(first)) {
-        matched = [{ path: '/home', meta: { title: 'Home' }}].concat(matched)
+        matched = [{ path: '/home', meta: { title: 'Home' } }].concat(matched)
       }
 
-      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+      this.levelList = matched.filter(
+        item => item.meta && item.meta.title && item.meta.breadcrumb !== false
+      )
     },
     getBreadcrumbRoutes() {
       let currentRoutes = {}
@@ -73,7 +93,7 @@ export default {
     },
     getParentRoute(currentRoutes, last, matched = []) {
       const meta = last.meta || {}
-      currentRoutes.forEach((item) => {
+      currentRoutes.forEach(item => {
         if (item.path === meta.parent) {
           matched.unshift(item)
           this.getParentRoute(currentRoutes, item, matched)

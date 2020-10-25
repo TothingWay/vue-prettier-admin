@@ -11,8 +11,13 @@
     </a-radio-button>
   </a-radio-group>
   <a-card>
-    <a-card-grid v-for="item in antdIcons" :key="item" class="icon-grid" @click="handleCopy(item,$event)">
-      <component :is="item" @click.prevent/>
+    <a-card-grid
+      v-for="item in antdIcons"
+      :key="item"
+      class="icon-grid"
+      @click="handleCopy(item, $event)"
+    >
+      <component :is="item" @click.prevent />
     </a-card-grid>
   </a-card>
 </template>
@@ -20,7 +25,7 @@
 <script>
 import * as antdIcons from '@ant-design/icons-vue'
 const iconsList = Object.keys(antdIcons).map(iconName => antdIcons[iconName])
-import clip from '/@/utils/clipboard'
+import clip from '@/utils/clipboard'
 export default {
   name: 'AntdIcon',
   components: {
@@ -33,12 +38,17 @@ export default {
   },
   computed: {
     antdIcons() {
-      return iconsList.filter(icon => {
-        if (this.currentTheme !== 'Outlined') {
-          return icon.name.includes(this.currentTheme)
-        }
-        return ['Filled', 'TwoTone'].every(theme => !icon.name.includes(theme))
-      }).map(Component => Component.displayName).filter(displayName => displayName)
+      return iconsList
+        .filter(icon => {
+          if (this.currentTheme !== 'Outlined') {
+            return icon.name.includes(this.currentTheme)
+          }
+          return ['Filled', 'TwoTone'].every(
+            theme => !icon.name.includes(theme)
+          )
+        })
+        .map(Component => Component.displayName)
+        .filter(displayName => displayName)
     }
   },
   methods: {

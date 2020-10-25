@@ -6,7 +6,7 @@ import store from './store'
 import 'ant-design-vue/dist/antd.css'
 import 'normalize.css/normalize.css'
 // icon
-import Icon from '/@/components/Icon/index.vue'
+import Icon from '@/components/Icon/index.vue'
 // error log
 import { initErrorLog } from './utils/error-log'
 // scrollbar style
@@ -27,4 +27,3 @@ const vueApp = createApp(App)
 initErrorLog(vueApp)
 
 vueApp.mount('#app')
-

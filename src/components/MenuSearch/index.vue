@@ -1,6 +1,6 @@
 <template>
-  <div :class="{'show':show}" class="menu-search">
-    <SearchOutlined @click.stop="click"/>
+  <div :class="{ show: show }" class="menu-search">
+    <SearchOutlined @click.stop="click" />
     <a-select
       ref="menuSearchSelect"
       id="menu-search-select"
@@ -17,7 +17,7 @@
       size="default"
     >
       <a-select-option v-for="item in options" :key="item.path" :value="item">
-        {{ item.title.join(' > ')}}
+        {{ item.title.join(' > ') }}
       </a-select-option>
     </a-select>
   </div>
@@ -87,13 +87,16 @@ export default {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: [{
-          name: 'title',
-          weight: 0.7
-        }, {
-          name: 'path',
-          weight: 0.3
-        }]
+        keys: [
+          {
+            name: 'title',
+            weight: 0.7
+          },
+          {
+            name: 'path',
+            weight: 0.3
+          }
+        ]
       })
     },
     // Filter out the routes that can be displayed in the sidebar
@@ -103,7 +106,9 @@ export default {
 
       for (const router of routes) {
         // skip hidden router
-        if (router.hidden) { continue }
+        if (router.hidden) {
+          continue
+        }
 
         const data = {
           path: path.resolve(basePath, router.path),
@@ -124,7 +129,11 @@ export default {
 
         // recursive child routes
         if (router.children) {
-          const tempRoutes = this.generateRoutes(router.children, data.path, data.title)
+          const tempRoutes = this.generateRoutes(
+            router.children,
+            data.path,
+            data.title
+          )
           if (tempRoutes.length >= 1) {
             res = [...res, ...tempRoutes]
           }
@@ -153,7 +162,8 @@ export default {
 }
 .menu-search {
   margin-right: 16px;
-  .menu-search-select {
+
+  :deep(.menu-search-select) {
     font-size: 14px;
     width: 0;
     overflow: hidden;
@@ -182,7 +192,7 @@ export default {
   }
 
   &.show {
-    .menu-search-select {
+    :deep(.menu-search-select) {
       width: 210px;
       margin-left: 10px;
     }

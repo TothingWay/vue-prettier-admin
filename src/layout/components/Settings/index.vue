@@ -17,13 +17,11 @@
         <span>Sidebar Logo</span>
         <a-switch v-model:checked="sidebarLogo" class="drawer-switch" />
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {}
@@ -75,19 +73,19 @@ export default {
 
   .drawer-title {
     margin-bottom: 12px;
-    color: rgba(0, 0, 0, .85);
+    color: rgba(0, 0, 0, 0.85);
     font-size: 14px;
     line-height: 22px;
   }
 
   .drawer-item {
-    color: rgba(0, 0, 0, .65);
+    color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     padding: 12px 0;
   }
 
   .drawer-switch {
-    float: right
+    float: right;
   }
 }
 </style>

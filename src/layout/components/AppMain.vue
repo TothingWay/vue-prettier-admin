@@ -3,7 +3,7 @@
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
-          <component :is="Component"/>
+          <component :is="Component" />
         </keep-alive>
       </transition>
     </router-view>
@@ -35,7 +35,7 @@ export default {
   padding: 16px;
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   min-height: 100vh;
   padding-top: 66px;
 }
@@ -46,7 +46,7 @@ export default {
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     min-height: 100vh;
     padding-top: 100px;
   }

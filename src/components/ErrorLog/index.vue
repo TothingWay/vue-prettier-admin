@@ -1,6 +1,10 @@
 <template>
-  <div v-if="errorLogs.length>0">
-    <a-badge :dot="true" style="margin-right: 16px;" @click="dialogTableVisible=true">
+  <div v-if="errorLogs.length > 0">
+    <a-badge
+      :dot="true"
+      style="margin-right: 16px;"
+      @click="dialogTableVisible = true"
+    >
       <a-button class="btn-bug" size="small" type="danger">
         <BugOutlined />
       </a-button>
@@ -14,25 +18,32 @@
           Clear All
         </a-button>
       </template>
-      <a-table size="small" :data-source="errorLogs" :pagination="false" bordered>
+      <a-table
+        size="small"
+        :data-source="errorLogs"
+        :pagination="false"
+        bordered
+      >
         <a-table-column title="Message">
-          <template v-slot="{record}">
+          <template v-slot="{ record }">
             <div>
               <div class="message-title">Msg:</div>
               <a-tag color="red">
                 {{ record.err.message }}
               </a-tag>
             </div>
-            <br>
+            <br />
             <div>
-              <div class="message-title" style="padding-right: 10px;">Info: </div>
+              <div class="message-title" style="padding-right: 10px;">
+                Info:
+              </div>
               <a-tag color="orange">
                 {{ record.vm.$options.__hmrId }} error in {{ record.info }}
               </a-tag>
             </div>
-            <br>
+            <br />
             <div>
-              <div class="message-title" style="padding-right: 16px;">Url: </div>
+              <div class="message-title" style="padding-right: 16px;">Url:</div>
               <a-tag color="green">
                 {{ record.url }}
               </a-tag>
@@ -40,7 +51,7 @@
           </template>
         </a-table-column>
         <a-table-column title="Stack">
-          <template v-slot="{record}">
+          <template v-slot="{ record }">
             {{ record.err.stack }}
           </template>
         </a-table-column>

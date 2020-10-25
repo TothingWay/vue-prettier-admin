@@ -1,14 +1,14 @@
 import { nextTick } from 'vue'
-import store from '/@/store'
-import { isString, isArray } from '/@/utils/validate'
-import settings from '/@/settings'
+import store from '@/store'
+import { isString, isArray } from '@/utils/validate'
+import settings from '@/settings'
 
 // you can set in settings.js
 // errorLog:'production' | ['production', 'development']
 const { errorLog: needErrorLog } = settings
 
 function checkNeed() {
-  const env = import.meta.env.MODE
+  const env = process.env.NODE_ENV
   if (isString(needErrorLog)) {
     return env === needErrorLog
   }
@@ -17,7 +17,7 @@ function checkNeed() {
   }
   return false
 }
-export const initErrorLog = (app) => {
+export const initErrorLog = app => {
   if (checkNeed()) {
     app.config.errorHandler = function(err, vm, info) {
       nextTick(() => {
@@ -32,4 +32,3 @@ export const initErrorLog = (app) => {
     }
   }
 }
-

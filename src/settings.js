@@ -1,5 +1,4 @@
-
-export default {
+module.exports = {
   title: 'Vue Prettier Admin',
 
   /**

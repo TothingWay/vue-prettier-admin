@@ -1,12 +1,17 @@
 <template>
   <a-menu-item :key="path" @click="handleLink">
-    <Icon v-if="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :type="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" />
-    <span class="menu-title">{{ onlyOneChild.meta && onlyOneChild.meta.title }}</span>
+    <Icon
+      v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+      :type="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+    />
+    <span class="menu-title">{{
+      onlyOneChild.meta && onlyOneChild.meta.title
+    }}</span>
   </a-menu-item>
 </template>
 
 <script>
-import { isExternal } from '/@/utils/validate'
+import { isExternal } from '@/utils/validate'
 
 export default {
   name: 'MenuItem',

@@ -1,28 +1,31 @@
 <template>
-<div :class="classObj" class="app-wrapper">
-  <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-  <Sidebar class="sidebar-container"/>
-  <div :class="{hasTagsView: needTagsView}" class="main-container">
+  <div :class="classObj" class="app-wrapper">
+    <div
+      v-if="device === 'mobile' && sidebar.opened"
+      class="drawer-bg"
+      @click="handleClickOutside"
+    />
+    <Sidebar class="sidebar-container" />
+    <div :class="{ hasTagsView: needTagsView }" class="main-container">
+      <div :class="{ 'fixed-header': fixedHeader }">
+        <Navbar />
+        <TagsView v-if="needTagsView" />
+      </div>
 
-    <div :class="{'fixed-header':fixedHeader}">
-      <Navbar />
-      <TagsView v-if="needTagsView" />
+      <AppMain />
+
+      <right-panel v-if="showSettings">
+        <Settings />
+      </right-panel>
     </div>
-
-    <AppMain/>
-
-    <right-panel v-if="showSettings">
-      <Settings />
-    </right-panel>
   </div>
-</div>
 </template>
 
 <script>
-import RightPanel from '/@/components/RightPanel/index.vue'
+import RightPanel from '@/components/RightPanel/index.vue'
 import { Sidebar, Navbar, AppMain, TagsView, Settings } from './components'
 import { mapState } from 'vuex'
-import { constantRoutes } from '/@/router'
+import { constantRoutes } from '@/router'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -58,9 +61,7 @@ export default {
       }
     }
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar')
@@ -70,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
+@import '../styles/variables.scss';
 
 .app-wrapper {
   position: relative;
@@ -78,7 +79,7 @@ export default {
   width: 100%;
 
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -91,7 +92,7 @@ export default {
 
 .main-container {
   min-height: 100%;
-  transition: margin-left .28s;
+  transition: margin-left 0.28s;
   margin-left: $sideBarWidth;
   position: relative;
 
@@ -141,7 +142,8 @@ export default {
 .hideSidebar {
   :deep(.sidebar-container) {
     width: 54px !important;
-    .ant-menu-submenu-title, .ant-menu-item {
+    .ant-menu-submenu-title,
+    .ant-menu-item {
       text-overflow: unset;
     }
     .menu-title {
@@ -166,7 +168,7 @@ export default {
   }
 
   .sidebar-container {
-    transition: transform .28s;
+    transition: transform 0.28s;
     width: $sideBarWidth !important;
   }
 
@@ -180,7 +182,6 @@ export default {
 }
 
 .withoutAnimation {
-
   .main-container,
   .sidebar-container {
     transition: none;
@@ -207,7 +208,7 @@ export default {
 }
 
 .hideSidebar .fixed-header {
-  width: calc(100% - 54px)
+  width: calc(100% - 54px);
 }
 
 .mobile .fixed-header {

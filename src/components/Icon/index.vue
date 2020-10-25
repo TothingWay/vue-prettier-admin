@@ -4,7 +4,7 @@
 
 <script>
 import { createFromIconfontCN } from '@ant-design/icons-vue'
-import settings from '/@/settings'
+import settings from '@/settings'
 const SvgIcon = createFromIconfontCN({
   scriptUrl: settings.iconfontUrl // 在 iconfont.cn 上生成
 })
@@ -22,6 +22,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -3,7 +3,7 @@ const HALF_PI = 0.5 * PI
 const rand = n => n * random()
 const fadeInOut = (t, m) => {
   const hm = 0.5 * m
-  return abs((t + hm) % m - hm) / (hm)
+  return abs(((t + hm) % m) - hm) / hm
 }
 const angle = (x1, y1, x2, y2) => atan2(y2 - y1, x2 - x1)
 const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2
@@ -26,6 +26,7 @@ let container
 let canvas
 let ctx
 let center
+// eslint-disable-next-line no-unused-vars
 let tick
 let particleProps
 
@@ -64,7 +65,14 @@ function drawParticles() {
 }
 
 function updateParticle(i) {
-  const i2 = 1 + i; const i3 = 2 + i; const i4 = 3 + i; const i5 = 4 + i; const i6 = 5 + i; const i7 = 6 + i; const i8 = 7 + i; const i9 = 8 + i
+  const i2 = 1 + i
+  const i3 = 2 + i
+  const i4 = 3 + i
+  const i5 = 4 + i
+  const i6 = 5 + i
+  const i7 = 6 + i
+  const i8 = 7 + i
+  const i9 = 8 + i
 
   const x = particleProps[i]
   const y = particleProps[i2]
@@ -93,7 +101,8 @@ function updateParticle(i) {
 }
 
 function drawParticle(x, y, theta, life, ttl, size, hue) {
-  const xRel = x - (0.5 * size); const yRel = y - (0.5 * size)
+  const xRel = x - 0.5 * size
+  const yRel = y - 0.5 * size
 
   ctx.a.save()
   ctx.a.lineCap = 'round'

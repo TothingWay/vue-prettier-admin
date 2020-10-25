@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 /* Layout */
-import Layout from '/@/layout/index.vue'
+import Layout from '@/layout/index.vue'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -38,7 +38,7 @@ export const constantRoutes = [
     children: [
       {
         path: '/home',
-        component: () => import('/@/views/Home.vue'),
+        component: () => import('@/views/Home.vue'),
         name: 'Home',
         meta: { title: 'Home', affix: true }
       }
@@ -51,13 +51,13 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('/@/views/redirect/index.vue')
+        component: () => import('@/views/redirect/index.vue')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('/@/views/login/index.vue'),
+    component: () => import('@/views/login/index.vue'),
     hidden: true
   }
 ]

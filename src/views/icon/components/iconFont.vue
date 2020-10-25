@@ -1,14 +1,19 @@
 <template>
   <a-card>
-    <a-card-grid v-for="item in iconFonts" :key="item" class="icon-grid" v-clipboard:copy="rewriteText(item)" v-clipboard:success="clipboardSuccess">
+    <a-card-grid
+      v-for="item in iconFonts"
+      :key="item"
+      class="icon-grid"
+      v-clipboard:copy="rewriteText(item)"
+      v-clipboard:success="clipboardSuccess"
+    >
       <Icon :type="item" />
     </a-card-grid>
   </a-card>
-
 </template>
 
 <script>
-import clipboard from '/@/directive/clipboard'
+import clipboard from '@/directive/clipboard'
 export default {
   directives: {
     clipboard
@@ -19,7 +24,9 @@ export default {
     }
   },
   mounted() {
-    const iconFontList = Array.from(document.querySelectorAll('body svg[style] symbol'))
+    const iconFontList = Array.from(
+      document.querySelectorAll('body svg[style] symbol')
+    )
     this.iconFonts = iconFontList.map(item => {
       return item.id
     })

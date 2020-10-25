@@ -1,8 +1,9 @@
-import { constantRoutes } from '/@/router'
-import { deepClone } from '/@/utils'
+import { constantRoutes } from '@/router'
+import { deepClone } from '@/utils'
 import path from 'path'
-import Layout from '/@/layout/index.vue'
-import { pathToHump, parseDynamicPath } from '/@/utils'
+import Layout from '@/layout/index.vue'
+import { pathToHump, parseDynamicPath } from '@/utils'
+import { defineAsyncComponent } from 'vue'
 
 let filterAsyncRoutesTimes = 0
 
@@ -13,9 +14,15 @@ let filterAsyncRoutesTimes = 0
  */
 export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
   asyncRoutes.forEach(item => {
+    const filePath = parseDynamicPath(item.path)
     const menu = {
       path: item.path,
-      component: filterAsyncRoutesTimes === 0 ? Layout : item.path ? () => import(`/@/views${parseDynamicPath(item.path)}.vue`) : () => import(`/@/layout/components/Empty.vue`),
+      component:
+        filterAsyncRoutesTimes === 0
+          ? Layout
+          : item.path
+          ? defineAsyncComponent(() => import(`@/views${filePath}`))
+          : null,
       children: [],
       name: pathToHump(parseDynamicPath(item.path)),
       alwaysShow: item.alwaysShow || false,
@@ -42,8 +49,8 @@ export function filterAsyncRoutes(filterRoutes, asyncRoutes) {
 }
 
 // The degraded route is a secondary route to solve the keep-alive caching problem
-export const getFlatRoutes = (routes) => {
-  const routers = routes.map((child) => {
+export const getFlatRoutes = routes => {
+  const routers = routes.map(child => {
     if (child.children && child.children.length > 0) {
       child.children = formatRouter(child.children, child.path, [], child)
     }
@@ -95,7 +102,13 @@ const actions = {
 
       commit('SET_ROUTES', Routes)
 
-      resolve(flatRoutes.concat({ path: '/:path(.*)*', redirect: '/home', hidden: true }))
+      resolve(
+        flatRoutes.concat({
+          path: '/:path(.*)*',
+          redirect: '/home',
+          hidden: true
+        })
+      )
     })
   }
 }

@@ -1,4 +1,4 @@
-import defaultSettings from '/@/settings'
+import defaultSettings from '@/settings'
 
 const title = defaultSettings.title || 'Vue Prettier Admin'
 

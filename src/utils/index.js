@@ -33,8 +33,7 @@ export function deepClone(target) {
   }
   for (const i in target) {
     const value = target[i]
-    if (checkedType(value) === 'Object' ||
-      checkedType(value) === 'Array') {
+    if (checkedType(value) === 'Object' || checkedType(value) === 'Array') {
       result[i] = deepClone(value)
     } else {
       result[i] = value
@@ -52,10 +51,12 @@ export function pathToHump(path) {
 
 // Formatting dynamic routing
 export function parseDynamicPath(path) {
-  if (path && typeof (path) === 'string') {
-    return parse(path).map(item => {
-      return typeof (item) === 'string' && item
-    }).join('')
+  if (path && typeof path === 'string') {
+    return parse(path)
+      .map(item => {
+        return typeof item === 'string' && item
+      })
+      .join('')
   }
   return ''
 }

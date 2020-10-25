@@ -1,7 +1,11 @@
 <template>
   <a-layout-header>
     <div class="left-menu-item">
-      <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggle-click="toggleSideBar" />
+      <Hamburger
+        class="hamburger-container"
+        :is-active="sidebar.opened"
+        @toggle-click="toggleSideBar"
+      />
       <Breadcrumb class="breadcrumb-container" />
     </div>
 
@@ -13,19 +17,29 @@
       <Screenfull />
 
       <a-dropdown :trigger="['hover', 'hover']" placement="bottomRight">
-        <a class="ant-dropdown-link" @click="e => e.preventDefault()"> {{name}} <DownOutlined style="margin-right: 0;"/> </a>
+        <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+          {{ name }} <DownOutlined style="margin-right: 0;" />
+        </a>
         <template #overlay>
           <a-menu>
             <a-menu-item>
-              <router-link to="/"><HomeOutlined class="dropdown-icon"/>首页</router-link>
+              <router-link to="/"
+                ><HomeOutlined class="dropdown-icon" />首页</router-link
+              >
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item>
-              <a target="_blank" href="https://github.com/TothingWay/vue-prettier-admin"><GithubOutlined class="dropdown-icon"/>项目地址</a>
+              <a
+                target="_blank"
+                href="https://github.com/TothingWay/vue-prettier-admin"
+                ><GithubOutlined class="dropdown-icon" />项目地址</a
+              >
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item @click="logout">
-              <a href="javascript:;"><LogoutOutlined class="dropdown-icon"/>退出登录</a>
+              <a href="javascript:;"
+                ><LogoutOutlined class="dropdown-icon" />退出登录</a
+              >
             </a-menu-item>
           </a-menu>
         </template>
@@ -35,12 +49,17 @@
 </template>
 
 <script>
-import Hamburger from '/@/components/Hamburger/index.vue'
-import MenuSearch from '/@/components/MenuSearch/index.vue'
-import Breadcrumb from '/@/components/Breadcrumb/index.vue'
-import Screenfull from '/@/components/Screenfull/index.vue'
-import ErrorLog from '/@/components/ErrorLog/index.vue'
-import { DownOutlined, GithubOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import Hamburger from '@/components/Hamburger/index.vue'
+import MenuSearch from '@/components/MenuSearch/index.vue'
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import Screenfull from '@/components/Screenfull/index.vue'
+import ErrorLog from '@/components/ErrorLog/index.vue'
+import {
+  DownOutlined,
+  GithubOutlined,
+  HomeOutlined,
+  LogoutOutlined
+} from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -57,19 +76,12 @@ export default {
     LogoutOutlined
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'device',
-      'name'
-    ])
+    ...mapGetters(['sidebar', 'device', 'name'])
   },
   data() {
-    return {
-
-    }
+    return {}
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
@@ -91,16 +103,16 @@ export default {
   height: 50px;
   line-height: 50px;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .hamburger-container {
     line-height: 46px;
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    transition: background 0.3s;
+    -webkit-tap-highlight-color: transparent;
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 }
@@ -114,7 +126,8 @@ export default {
   height: 30px;
 }
 
-.right-menu-item, .left-menu-item {
+.right-menu-item,
+.left-menu-item {
   display: flex;
   padding-right: 16px;
   align-items: center;

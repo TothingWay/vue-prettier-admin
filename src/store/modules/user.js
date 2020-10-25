@@ -1,6 +1,6 @@
-import { login, getInfo } from '/@/api/user'
-import { getToken, setToken, removeToken } from '/@/utils/auth'
-import router, { resetRouter } from '/@/router'
+import { login, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
@@ -29,46 +29,50 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { login } = response
-        if (login[username.trim()]) {
-          commit('SET_TOKEN', login[username.trim()].token)
-          setToken(login[username.trim()].token)
-          resolve()
-        } else {
-          reject('账号密码错误')
-        }
-      }).catch(error => {
-        reject(error)
-      })
+      login({ username: username.trim(), password: password })
+        .then(response => {
+          const { login } = response
+          if (login[username.trim()]) {
+            commit('SET_TOKEN', login[username.trim()].token)
+            setToken(login[username.trim()].token)
+            resolve()
+          } else {
+            reject('账号密码错误')
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { users } = response
+      getInfo(state.token)
+        .then(response => {
+          const { users } = response
 
-        if (!users[state.token]) {
-          reject('Verification failed, please Login again.')
-        }
+          if (!users[state.token]) {
+            reject('Verification failed, please Login again.')
+          }
 
-        const { name, introduction, roles } = users[state.token]
+          const { name, introduction, roles } = users[state.token]
 
-        commit('SET_NAME', name)
-        commit('SET_INTRODUCTION', introduction)
-        commit('SET_ROLES', roles)
-        resolve(users[state.token])
-      }).catch(error => {
-        reject(error)
-      })
+          commit('SET_NAME', name)
+          commit('SET_INTRODUCTION', introduction)
+          commit('SET_ROLES', roles)
+          resolve(users[state.token])
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 
   // user logout
   logout({ commit, dispatch }) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       commit('SET_TOKEN', '')
       removeToken()
       commit('permission/SET_ROUTES', [], { root: true })
@@ -100,7 +104,9 @@ const actions = {
     commit('permission/SET_ROUTES', [], { root: true })
 
     // generate accessible routes map
-    const accessRoutes = await dispatch('permission/generateRoutes', routers, { root: true })
+    const accessRoutes = await dispatch('permission/generateRoutes', routers, {
+      root: true
+    })
 
     // dynamically add accessible routes
     accessRoutes.forEach(route => {
