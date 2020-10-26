@@ -17,6 +17,11 @@ import './styles/transition.scss'
 import './styles/index.scss'
 // permission control
 import './permission'
+// dayjs i18n
+import * as dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+
+dayjs.locale('zh-cn')
 
 const vueApp = createApp(App)
   .use(store)

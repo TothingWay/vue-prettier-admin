@@ -1,6 +1,9 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const productionGzipExtensions = ['html', 'js', 'css', 'svg']
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -46,7 +49,13 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    // Used day.js to replace moment.js
+    plugins: [
+      new AntdDayjsWebpackPlugin({
+        preset: 'antdv3'
+      })
+    ]
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
@@ -74,6 +83,22 @@ module.exports = {
           }
         ])
         .end()
+
+      config
+        .plugin('compression')
+        .use(CompressionWebpackPlugin, [
+          {
+            filename: '[path][base].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp(
+              '\\.(' + productionGzipExtensions.join('|') + ')$'
+            ),
+            threshold: 8192,
+            minRatio: 0.8
+          }
+        ])
+        .end()
+
       config.optimization.splitChunks({
         chunks: 'all',
         cacheGroups: {
