@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     home
-    <a-range-picker />
   </div>
 </template>
 
