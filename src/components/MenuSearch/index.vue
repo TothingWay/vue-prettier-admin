@@ -120,7 +120,7 @@ export default {
           if (router.redirect !== 'noRedirect') {
             // only push the routes with title
             // special case: need to exclude parent router without redirect
-            if (router.component.name !== 'Layout') {
+            if (router.component && router.component.name !== 'Layout') {
               // except Layout menu
               res.push(data)
             }
